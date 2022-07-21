@@ -7,7 +7,7 @@ using Microsoft.Extensions.Hosting.WindowsServices;
 // https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/windows-service?view=aspnetcore-6.0&tabs=visual-studio
 
 
-var options = new WebApplicationOptions
+WebApplicationOptions? options = new WebApplicationOptions
 {
     Args = args,
     ContentRootPath = WindowsServiceHelpers.IsWindowsService() ? AppContext.BaseDirectory : default

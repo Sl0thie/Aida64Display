@@ -13,13 +13,9 @@ namespace Aida64Service
             _logger = logger;
         }
 
-        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+        protected override Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            while (!stoppingToken.IsCancellationRequested)
-            {
-                //_logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-                await Task.Delay(1000, stoppingToken);
-            }
+            return Task.CompletedTask;
         }
 
         public static SensorData GetData()
@@ -30,61 +26,56 @@ namespace Aida64Service
 
             try
             {
-                string value = CimSession.Create(null).QueryInstances(@"Root\WMI", "WQL", "SELECT * FROM AIDA64_SensorValues WHERE ID = 'SCPUUTI'").FirstOrDefault().CimInstanceProperties["Value"].Value.ToString();
+                string value = CimSession.Create(null).QueryInstances(@"Root\WMI", "WQL", "SELECT * FROM AIDA64_SensorValues WHERE ID = 'SNIC1DLRATE'").FirstOrDefault().CimInstanceProperties["Value"].Value.ToString();
+                data.SNIC1DLRATE = Convert.ToSingle(value);
 
+                value = CimSession.Create(null).QueryInstances(@"Root\WMI", "WQL", "SELECT * FROM AIDA64_SensorValues WHERE ID = 'SNIC1ULRATE'").FirstOrDefault().CimInstanceProperties["Value"].Value.ToString();
+                data.SNIC1ULRATE = Convert.ToSingle(value);
+
+                value = CimSession.Create(null).QueryInstances(@"Root\WMI", "WQL", "SELECT * FROM AIDA64_SensorValues WHERE ID = 'SNIC2DLRATE'").FirstOrDefault().CimInstanceProperties["Value"].Value.ToString();
+                data.SNIC2DLRATE = Convert.ToSingle(value);
+
+                value = CimSession.Create(null).QueryInstances(@"Root\WMI", "WQL", "SELECT * FROM AIDA64_SensorValues WHERE ID = 'SNIC2ULRATE'").FirstOrDefault().CimInstanceProperties["Value"].Value.ToString();
+                data.SNIC2ULRATE = Convert.ToSingle(value);
+
+                value = CimSession.Create(null).QueryInstances(@"Root\WMI", "WQL", "SELECT * FROM AIDA64_SensorValues WHERE ID = 'SNIC3DLRATE'").FirstOrDefault().CimInstanceProperties["Value"].Value.ToString();
+                data.SNIC3DLRATE = Convert.ToSingle(value);
+
+                value = CimSession.Create(null).QueryInstances(@"Root\WMI", "WQL", "SELECT * FROM AIDA64_SensorValues WHERE ID = 'SNIC3ULRATE'").FirstOrDefault().CimInstanceProperties["Value"].Value.ToString();
+                data.SNIC3ULRATE = Convert.ToSingle(value);
+
+
+
+                value = CimSession.Create(null).QueryInstances(@"Root\WMI", "WQL", "SELECT * FROM AIDA64_SensorValues WHERE ID = 'SCPUUTI'").FirstOrDefault().CimInstanceProperties["Value"].Value.ToString();
                 data.SCPUUTI = Convert.ToInt32(value);
 
-                value = CimSession.Create(null).QueryInstances(@"Root\WMI", "WQL", "SELECT * FROM AIDA64_SensorValues WHERE ID = 'TCPU'").FirstOrDefault().CimInstanceProperties["Value"].Value.ToString();
 
+
+
+                value = CimSession.Create(null).QueryInstances(@"Root\WMI", "WQL", "SELECT * FROM AIDA64_SensorValues WHERE ID = 'TCPU'").FirstOrDefault().CimInstanceProperties["Value"].Value.ToString();
                 data.TCPU = Convert.ToSingle(value);
 
 
+                value = CimSession.Create(null).QueryInstances(@"Root\WMI", "WQL", "SELECT * FROM AIDA64_SensorValues WHERE ID = 'SGPU1UTI'").FirstOrDefault().CimInstanceProperties["Value"].Value.ToString();
+                data.SGPU1UTI = Convert.ToInt32(value);
 
-                //// Local testing.
-                //MemoryMappedFile mmf = MemoryMappedFile.OpenExisting("Global\\AIDA64_SensorValues");
+                value = CimSession.Create(null).QueryInstances(@"Root\WMI", "WQL", "SELECT * FROM AIDA64_SensorValues WHERE ID = 'TGPU1DIO'").FirstOrDefault().CimInstanceProperties["Value"].Value.ToString();
+                data.TGPU1DIO = Convert.ToSingle(value);
 
-                //// IIS 
-                ////MemoryMappedFile mmf = MemoryMappedFile.OpenExisting("AIDA64_SensorValues", MemoryMappedFileRights.Read, System.IO.HandleInheritability.Inheritable);
 
-                //MemoryMappedViewAccessor accessor = mmf.CreateViewAccessor();
+                
 
-                //string xml = "";
 
-                //for (int i = 0; i < accessor.Capacity; i++)
-                //{
-                //    xml = xml + (char)accessor.ReadByte(i);
-                //}
+                value = CimSession.Create(null).QueryInstances(@"Root\WMI", "WQL", "SELECT * FROM AIDA64_SensorValues WHERE ID = 'SDSK7ACT'").FirstOrDefault().CimInstanceProperties["Value"].Value.ToString();
+                data.SDSK7ACT = Convert.ToInt32(value);
 
-                ////string xml = (string)Marshal.PtrToStringAnsi(map);
-                ////System.Diagnostics.Debug.WriteLine(xml);
+                value = CimSession.Create(null).QueryInstances(@"Root\WMI", "WQL", "SELECT * FROM AIDA64_SensorValues WHERE ID = 'SDSK7READSPD'").FirstOrDefault().CimInstanceProperties["Value"].Value.ToString();
+                data.SDSK7READSPD = Convert.ToInt32(value);
 
-                ////SELECT * FROM AIDA64_SensorValues WHERE ID = 'SCPUUTI'
+                value = CimSession.Create(null).QueryInstances(@"Root\WMI", "WQL", "SELECT * FROM AIDA64_SensorValues WHERE ID = 'SDSK7WRITESPD'").FirstOrDefault().CimInstanceProperties["Value"].Value.ToString();
+                data.SDSK7WRITESPD = Convert.ToInt32(value);
 
-                //xml = xml.Substring(xml.IndexOf("SCPUUTI") + 49);
-                //string value = xml.Substring(0, xml.IndexOf("</value>"));
-                ////Debug.WriteLine(value);
-                //data.SCPUUTI = Convert.ToInt32(value);
-
-                //xml = xml.Substring(xml.IndexOf("SMEMUTI") + 52);
-                //value = xml.Substring(0, xml.IndexOf("</value>"));
-                ////Debug.WriteLine(value);
-                //data.SMEMUTI = Convert.ToInt32(value);
-
-                //xml = xml.Substring(xml.IndexOf("SGPU1UTI") + 50);
-                //value = xml.Substring(0, xml.IndexOf("</value>"));
-                ////Debug.WriteLine(value);
-                //data.SGPU1UTI = Convert.ToInt32(value);
-
-                //xml = xml.Substring(xml.IndexOf("TCPU") + 34);
-                //value = xml.Substring(0, xml.IndexOf("</value>"));
-                ////Debug.WriteLine(value);
-                //data.TCPU = Convert.ToSingle(value);
-
-                //xml = xml.Substring(xml.IndexOf("TGPU1DIO") + 44);
-                //value = xml.Substring(0, xml.IndexOf("</value>"));
-                ////Debug.WriteLine(value);
-                //data.TGPU1DIO = Convert.ToSingle(value);
-
+                
             }
             catch (Exception ex)
             {

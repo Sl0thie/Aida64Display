@@ -29,12 +29,14 @@
         public int SFREEVMEM { get; set; }
 
         // Network
-        public int SNIC1DLRATE { get; set; }
-        public int SNIC1ULRATE { get; set; }
-        public int SNIC2DLRATE { get; set; }
-        public int SNIC2ULRATE { get; set; }
-        public int SNIC3DLRATE { get; set; }
-        public int SNIC3ULRATE { get; set; }
+        public int SNICDLRATE { get; set; } = 0;
+        public int SNICULRATE { get; set; } = 0;
+        public float SNIC1DLRATE { get; set; }
+        public float SNIC1ULRATE { get; set; }
+        public float SNIC2DLRATE { get; set; }
+        public float SNIC2ULRATE { get; set; }
+        public float SNIC3DLRATE { get; set; }
+        public float SNIC3ULRATE { get; set; }
 
         // Disks
         public int SDSK1ACT { get; set; }

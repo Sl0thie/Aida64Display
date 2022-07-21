@@ -18,6 +18,24 @@
 
         public void AddItem(SensorData item)
         {
+            if(item.SNIC2DLRATE > 3000)
+            {
+                item.SNICDLRATE = 300;
+            }
+            else
+            {
+                item.SNICDLRATE = (int)item.SNIC2DLRATE / 10;
+            }
+
+            if (item.SNIC2ULRATE > 3000)
+            {
+                item.SNICULRATE = 300;
+            }
+            else
+            {
+                item.SNICULRATE = (int)item.SNIC2ULRATE / 10;
+            }
+
             if (items.Count > Op.MaxValues)
             {
                 _ = items.Dequeue();
