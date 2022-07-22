@@ -24,8 +24,7 @@ namespace Aida64Mobile.Droid
 
             System.Diagnostics.Debug.WriteLine("StartupActivity.OnCreate");
 
-            Xamarin.Essentials.Platform.Init(this, savedInstanceState);
-            global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
+            
 
             Window.AddFlags(WindowManagerFlags.Fullscreen);
             //Window.AddFlags(WindowManagerFlags.ForceNotFullscreen);
@@ -38,6 +37,10 @@ namespace Aida64Mobile.Droid
                 _ = StartService(serviceMonitor);
                 //_ = StartForegroundService(serviceMonitor);
             }
+
+
+            //Xamarin.Essentials.Platform.Init(this, savedInstanceState);
+            global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
 
             LoadApplication(new App());
         }

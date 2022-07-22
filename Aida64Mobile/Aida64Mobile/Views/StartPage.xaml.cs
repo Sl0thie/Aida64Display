@@ -17,6 +17,7 @@
     using Aida64Mobile.Models;
     using System.IO;
     using System.Reflection;
+using TouchTracking;
 
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class StartPage : ContentPage
@@ -153,9 +154,28 @@
             canvasView.InvalidateSurface();
         }
 
-        void OnCanvasViewTapped(object sender, EventArgs args)
+        void OnTouchEffectAction(object sender, TouchActionEventArgs args)
         {
+            switch (args.Type)
+            {
+                case TouchActionType.Pressed:
 
+                    System.Diagnostics.Debug.WriteLine($"Location {args.Location.X} {args.Location.Y}");
+
+                    break;
+
+                case TouchActionType.Moved:
+                    
+                    break;
+
+                case TouchActionType.Released:
+                    
+                    break;
+
+                case TouchActionType.Cancelled:
+                    
+                    break;
+            }
         }
 
         void OnCanvasViewPaintSurface(object sender, SKPaintSurfaceEventArgs args)
@@ -196,12 +216,12 @@
             canvas.DrawText(d[count].SCPUUTI.ToString() + "%", rightmargin, 100, value, counter1shadow);
 
             canvas.DrawText("Disk", margin + 90, 500, label, gray);
-            canvas.DrawText("Utilisation", margin + 90, 550, label, gray);
-            canvas.DrawText(d[count].SDSK7WRITESPD.ToString() + "%", rightmargin - 350, 550, value, counter2shadow);
-            canvas.DrawText(d[count].SDSK7READSPD.ToString() + "%", rightmargin, 550, value, counter1shadow);
+            canvas.DrawText("Read/Write", margin + 90, 550, label, gray);
+            canvas.DrawText(d[count].SDSK7WRITESPD.ToString() + "Mb", rightmargin - 350, 550, value, counter2shadow);
+            canvas.DrawText(d[count].SDSK7READSPD.ToString() + "Mb", rightmargin, 550, value, counter1shadow);
 
             canvas.DrawText("Network", margin + 110, 945, label, gray);
-            canvas.DrawText("Utilisation", margin + 110, 995, label, gray);
+            canvas.DrawText("Download/Upload", margin + 110, 995, label, gray);
             canvas.DrawText(d[count].SNIC2ULRATE.ToString() + "Kb", rightmargin - 350, 995, value, counter2shadow);
             canvas.DrawText(d[count].SNIC2DLRATE.ToString() + "Kb", rightmargin, 995, value, counter1shadow);
 
@@ -215,7 +235,6 @@
             canvas.DrawText(d[count].TGPU1DIO.ToString() + "c", rightmargin - 350, 1870, value, counter2shadow);
             canvas.DrawText(d[count].TCPU.ToString() + "c", rightmargin, 1870, value, counter1shadow);
 
-
             int x1;
             int x2;
 
@@ -224,37 +243,30 @@
                 x1 = i * 4 + margin + 3;
                 x2 = x1 + 4;
 
-
                 canvas.DrawLine(x1, 428 - (d[i - 1].SMEMUTI * 3), x2, 428 - (d[i].SMEMUTI * 3), counter2shadow);
                 canvas.DrawLine(x1, 426 - (d[i - 1].SMEMUTI * 3), x2, 426 - (d[i].SMEMUTI * 3), counter2);
                 canvas.DrawLine(x1, 428 - (d[i - 1].SCPUUTI * 3), x2, 428 - (d[i].SCPUUTI * 3), counter1shadow);
                 canvas.DrawLine(x1, 426 - (d[i - 1].SCPUUTI * 3), x2, 426 - (d[i].SCPUUTI * 3), counter1);
 
-
-                canvas.DrawLine(x1, 872 - (d[i - 1].SDSK7WRITESPD * 3), x2, 872 - (d[i].SDSK7WRITESPD * 3), counter2shadow);
-                canvas.DrawLine(x1, 870 - (d[i - 1].SDSK7WRITESPD * 3), x2, 870 - (d[i].SDSK7WRITESPD * 3), counter2);
-                canvas.DrawLine(x1, 872 - (d[i - 1].SDSK7READSPD * 3), x2, 872 - (d[i].SDSK7READSPD * 3), counter1shadow);
-                canvas.DrawLine(x1, 870 - (d[i - 1].SDSK7READSPD * 3), x2, 870 - (d[i].SDSK7READSPD * 3), counter1);
+                canvas.DrawLine(x1, 872 - (d[i - 1].SDSKWRITESPD ), x2, 872 - (d[i].SDSKWRITESPD ), counter2shadow);
+                canvas.DrawLine(x1, 870 - (d[i - 1].SDSKWRITESPD ), x2, 870 - (d[i].SDSKWRITESPD ), counter2);
+                canvas.DrawLine(x1, 872 - (d[i - 1].SDSKREADSPD ), x2, 872 - (d[i].SDSKREADSPD ), counter1shadow);
+                canvas.DrawLine(x1, 870 - (d[i - 1].SDSKREADSPD ), x2, 870 - (d[i].SDSKREADSPD ), counter1);
                 
-
                 canvas.DrawLine(x1, 1320 - (d[i - 1].SNICULRATE), x2, 1320 - (d[i].SNICULRATE), counter2shadow);
                 canvas.DrawLine(x1, 1318 - (d[i - 1].SNICULRATE), x2, 1318 - (d[i].SNICULRATE), counter2);
                 canvas.DrawLine(x1, 1320 - (d[i - 1].SNICDLRATE), x2, 1320 - (d[i].SNICDLRATE), counter1shadow);
                 canvas.DrawLine(x1, 1318 - (d[i - 1].SNICDLRATE), x2, 1318 - (d[i].SNICDLRATE), counter1);
-
 
                 canvas.DrawLine(x1, 1762 - (d[i - 1].SGPU1USEDDEMEM * 3), x2, 1762 - (d[i].SGPU1USEDDEMEM * 3), counter2shadow);
                 canvas.DrawLine(x1, 1760 - (d[i - 1].SGPU1USEDDEMEM * 3), x2, 1760 - (d[i].SGPU1USEDDEMEM * 3), counter2);
                 canvas.DrawLine(x1, 1762 - (d[i - 1].SGPU1UTI * 3), x2, 1762 - (d[i].SGPU1UTI * 3), counter1shadow);
                 canvas.DrawLine(x1, 1760 - (d[i - 1].SGPU1UTI * 3), x2, 1760 - (d[i].SGPU1UTI * 3), counter1);
 
-
                 canvas.DrawLine(x1, 2182 - (d[i - 1].TGPU1DIO * 3), x2, 2182 - (d[i].TGPU1DIO * 3), counter2shadow);
                 canvas.DrawLine(x1, 2180 - (d[i - 1].TGPU1DIO * 3), x2, 2180 - (d[i].TGPU1DIO * 3), counter2);
                 canvas.DrawLine(x1, 2182 - (d[i - 1].TCPU * 3), x2, 2182 - (d[i].TCPU * 3), counter1shadow);
                 canvas.DrawLine(x1, 2180 - (d[i - 1].TCPU * 3), x2, 2180 - (d[i].TCPU * 3), counter1);
-
-
             }
 
             ControlMessage startMessage = new ControlMessage("FrameFinished");

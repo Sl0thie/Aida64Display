@@ -24,7 +24,7 @@
             }
             else
             {
-                item.SNICDLRATE = (int)item.SNIC2DLRATE / 10;
+                item.SNICDLRATE = item.SNIC2DLRATE / 10;
             }
 
             if (item.SNIC2ULRATE > 3000)
@@ -33,15 +33,36 @@
             }
             else
             {
-                item.SNICULRATE = (int)item.SNIC2ULRATE / 10;
+                item.SNICULRATE = item.SNIC2ULRATE / 10;
             }
+
+            if (item.SDSK7READSPD > 300)
+            {
+                item.SDSKREADSPD = 300;
+            }
+            else
+            {
+                item.SDSKREADSPD = item.SDSK7READSPD;
+            }
+
+            if (item.SDSK7WRITESPD > 300)
+            {
+                item.SDSKWRITESPD = 300;
+            }
+            else
+            {
+                item.SDSKWRITESPD = item.SDSK7WRITESPD;
+            }
+
+
+
+
+            items.Enqueue(item);
 
             if (items.Count > Op.MaxValues)
             {
                 _ = items.Dequeue();
-            }
-
-            items.Enqueue(item);
+            }           
         }
 
         public SensorData[] GetItems()
