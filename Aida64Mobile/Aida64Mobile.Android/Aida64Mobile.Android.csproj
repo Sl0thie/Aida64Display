@@ -62,10 +62,19 @@
     <PackageReference Include="Microsoft.AspNetCore.SignalR.Client">
       <Version>6.0.7</Version>
     </PackageReference>
+    <PackageReference Include="Microsoft.CodeAnalysis.Analyzers">
+      <Version>3.3.3</Version>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Analyzers">
+      <Version>6.0.7</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2196" />
     <PackageReference Include="Xamarin.Essentials" Version="1.7.0" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChargingActivity.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,0 +1,33 @@
+2022-07-23 12:50:23.213 +10:00 [INF] Starting Aida64Service.
+2022-07-23 12:51:53.780 +10:00 [INF] Starting Aida64Service.
+2022-07-23 12:51:55.326 +10:00 [INF] Worker Constructor
+2022-07-23 12:52:41.593 +10:00 [INF] Starting Aida64Service.
+2022-07-23 12:52:42.678 +10:00 [INF] Worker Constructor
+2022-07-23 12:53:46.797 +10:00 [INF] Starting Aida64Service.
+2022-07-23 12:53:47.889 +10:00 [INF] Worker.Constructor
+2022-07-23 12:53:48.893 +10:00 [INF] Worker.OnTimedEvent
+2022-07-23 12:53:49.905 +10:00 [INF] Worker.OnTimedEvent
+2022-07-23 12:53:50.900 +10:00 [INF] Worker.OnTimedEvent
+2022-07-23 12:53:51.910 +10:00 [INF] Worker.OnTimedEvent
+2022-07-23 12:53:52.909 +10:00 [INF] Worker.OnTimedEvent
+2022-07-23 12:53:53.897 +10:00 [INF] Worker.OnTimedEvent
+2022-07-23 12:53:54.893 +10:00 [INF] Worker.OnTimedEvent
+2022-07-23 12:53:55.901 +10:00 [INF] Worker.OnTimedEvent
+2022-07-23 12:53:56.897 +10:00 [INF] Worker.OnTimedEvent
+2022-07-23 12:53:57.894 +10:00 [INF] Worker.OnTimedEvent
+2022-07-23 12:53:58.905 +10:00 [INF] Worker.OnTimedEvent
+2022-07-23 12:53:59.905 +10:00 [INF] Worker.OnTimedEvent
+2022-07-23 12:54:00.903 +10:00 [INF] Worker.OnTimedEvent
+2022-07-23 12:54:01.900 +10:00 [INF] Worker.OnTimedEvent
+2022-07-23 12:54:02.895 +10:00 [INF] Worker.OnTimedEvent
+2022-07-23 12:54:03.899 +10:00 [INF] Worker.OnTimedEvent
+2022-07-23 12:54:04.895 +10:00 [INF] Worker.OnTimedEvent
+2022-07-23 12:54:05.897 +10:00 [INF] Worker.OnTimedEvent
+2022-07-23 12:54:06.900 +10:00 [INF] Worker.OnTimedEvent
+2022-07-23 12:54:07.894 +10:00 [INF] Worker.OnTimedEvent
+2022-07-23 12:54:08.899 +10:00 [INF] Worker.OnTimedEvent
+2022-07-23 12:54:09.897 +10:00 [INF] Worker.OnTimedEvent
+2022-07-23 12:54:10.893 +10:00 [INF] Worker.OnTimedEvent
+2022-07-23 12:58:16.903 +10:00 [INF] Starting Aida64Service.
+2022-07-23 12:58:18.246 +10:00 [INF] Worker.Constructor
+2022-07-23 12:58:19.264 +10:00 [INF] Worker.SensorData

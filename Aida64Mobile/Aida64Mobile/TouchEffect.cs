@@ -1,7 +1,7 @@
-﻿using Xamarin.Forms;
-
-namespace TouchTracking
+﻿namespace TouchTracking
 {
+    using Xamarin.Forms;
+
     public class TouchEffect : RoutingEffect
     {
         public event TouchActionEventHandler TouchAction;

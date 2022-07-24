@@ -1,9 +1,9 @@
-﻿using System;
-
-using Xamarin.Forms;
-
-namespace TouchTracking
+﻿namespace TouchTracking
 {
+    using System;
+
+    using Xamarin.Forms;
+
     public class TouchActionEventArgs : EventArgs
     {
         public TouchActionEventArgs(long id, TouchActionType type, Point location, bool isInContact)

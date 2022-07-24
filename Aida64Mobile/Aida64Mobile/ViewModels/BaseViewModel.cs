@@ -9,25 +9,29 @@
     using System.Runtime.CompilerServices;
 
     using Xamarin.Forms;
-using System.Diagnostics;
-using Aida64Mobile.Views;
 
     public class BaseViewModel : INotifyPropertyChanged
     {
-        public IDataStore<SensorData> DataStore => DependencyService.Get<IDataStore<SensorData>>();
+        public IDataStore<SensorData> DataStore
+        {
+            get
+            {
+                return DependencyService.Get<IDataStore<SensorData>>();
+            }
+        }
 
-        bool isBusy = false;
+        private bool isBusy = false;
         public bool IsBusy
         {
             get { return isBusy; }
-            set { SetProperty(ref isBusy, value); }
+            set { _ = SetProperty(ref isBusy, value); }
         }
 
-        string title = string.Empty;
+        private string title = string.Empty;
         public string Title
         {
             get { return title; }
-            set { SetProperty(ref title, value); }
+            set { _ = SetProperty(ref title, value); }
         }
 
         public delegate void UpdateEventHandler(object sender);
@@ -35,13 +39,9 @@ using Aida64Mobile.Views;
 
         public BaseViewModel()
         {
-
             _ = DataStore.GetItems();
-
             MessagingCenter.Subscribe<SensorData>(this, "RecieveSensorData", (data) =>
             {
-                //System.Diagnostics.Debug.WriteLine("RecieveSensorData");
-
                 DataStore.AddItem(data);
                 Update?.Invoke(this);
             });
@@ -50,7 +50,9 @@ using Aida64Mobile.Views;
         protected bool SetProperty<T>(ref T backingStore, T value, [CallerMemberName] string propertyName = "", Action onChanged = null)
         {
             if (EqualityComparer<T>.Default.Equals(backingStore, value))
+            {
                 return false;
+            }
 
             backingStore = value;
             onChanged?.Invoke();
@@ -62,9 +64,11 @@ using Aida64Mobile.Views;
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
         {
-            var changed = PropertyChanged;
+            PropertyChangedEventHandler changed = PropertyChanged;
             if (changed == null)
+            {
                 return;
+            }
 
             changed.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

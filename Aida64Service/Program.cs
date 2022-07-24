@@ -2,31 +2,43 @@ using System.Net;
 
 using Aida64Service;
 using Aida64Service.Hubs;
+
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Hosting.WindowsServices;
+
+using Serilog;
 
 // https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/windows-service?view=aspnetcore-6.0&tabs=visual-studio
 
+Log.Logger = new LoggerConfiguration()
+    .MinimumLevel.Debug()
+    .WriteTo.File("Aida64Service - .txt", rollingInterval: RollingInterval.Day)
+    .CreateLogger();
 
-WebApplicationOptions? options = new WebApplicationOptions
+WebApplicationOptions? options = new()
 {
     Args = args,
     ContentRootPath = WindowsServiceHelpers.IsWindowsService() ? AppContext.BaseDirectory : default
 };
 
-var builder = WebApplication.CreateBuilder(options);
+WebApplicationBuilder? builder = WebApplication.CreateBuilder(options);
 builder.Services.AddRazorPages();
 builder.Services.AddSignalR();
-builder.Services.AddHostedService<Worker>();
 
-builder.WebHost.ConfigureKestrel((context, serverOptions) =>
+builder.Services.AddHostedService<Worker>(provider =>
 {
-    serverOptions.Listen( IPAddress.Parse("192.168.0.6") , 929);  
+    var hubContext = provider.GetService<IHubContext<DataHub>>();
+    var aWorker = new Worker(hubContext);
+    return aWorker;
+});
+
+builder.WebHost.ConfigureKestrel(configureOptions: (context, serverOptions) =>
+{
+    serverOptions.Listen(IPAddress.Parse("192.168.0.6"), 929);
 });
 
 builder.Host.UseWindowsService();
-
-var app = builder.Build();
-
+WebApplication? app = builder.Build();
 app.UseStaticFiles();
 app.UseRouting();
 app.MapRazorPages();

@@ -54,15 +54,28 @@
                 item.SDSKWRITESPD = item.SDSK7WRITESPD;
             }
 
+            items.Enqueue(item);
 
+            if (items.Count > Op.MaxValues)
+            {
+                _ = items.Dequeue();
+            }
 
+            if (item.SGPU1USEDDEMEM > 6000)
+            {
+                item.SGPU1USEDDEMEM = 300;
+            }
+            else
+            {
+                item.SGPUUSEDDEMEM = item.SGPU1USEDDEMEM / 20;
+            }
 
             items.Enqueue(item);
 
             if (items.Count > Op.MaxValues)
             {
                 _ = items.Dequeue();
-            }           
+            }
         }
 
         public SensorData[] GetItems()

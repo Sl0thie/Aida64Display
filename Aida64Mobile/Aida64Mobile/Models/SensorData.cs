@@ -22,6 +22,7 @@
         public float SGPU1MCUTI { get; set; }
         public float SGPU1VEUTI { get; set; }
         public float SGPU1BIUTI { get; set; }
+        public float SGPUUSEDDEMEM { get; set; }
         public float SGPU1USEDDEMEM { get; set; }
         public float SGPU1USEDDYMEM { get; set; }
         public float SVMEMUSAGE { get; set; }

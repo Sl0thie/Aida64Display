@@ -1,11 +1,5 @@
 ﻿namespace Aida64Mobile.Views
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-
     using Aida64Mobile.ViewModels;
 
     using Xamarin.Forms;
@@ -13,45 +7,39 @@
 
     using SkiaSharp;
     using SkiaSharp.Views.Forms;
-    using Aida64Mobile.Services;
     using Aida64Mobile.Models;
     using System.IO;
     using System.Reflection;
-using TouchTracking;
+    using TouchTracking;
 
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class StartPage : ContentPage
     {
-        public static StartPage Current;
-
-        SKPaint blue = new SKPaint();
-        SKPaint blueright = new SKPaint();
-        SKPaint lightblue = new SKPaint();
-        SKPaint gray = new SKPaint();
-        SKPaint grayright = new SKPaint();
-        SKPaint red = new SKPaint();
-        SKPaint white = new SKPaint();
-
-
-        SKPaint counter1 = new SKPaint();
-        SKPaint counter2 = new SKPaint();
-        SKPaint counter1shadow = new SKPaint();
-        SKPaint counter2shadow = new SKPaint();
-
-        SKFont label = new SKFont();
-        SKFont value = new SKFont();
-
-        SKBitmap graphbackground;
-        SKBitmap hd;
-        SKBitmap cpu;
-        SKBitmap net;
-        SKBitmap gpu;
-        SKBitmap temp;
+        //public static StartPage Current;
+        private readonly SKPaint blue = new SKPaint();
+        private readonly SKPaint blueright = new SKPaint();
+        private readonly SKPaint lightblue = new SKPaint();
+        private readonly SKPaint gray = new SKPaint();
+        private readonly SKPaint grayright = new SKPaint();
+        private readonly SKPaint red = new SKPaint();
+        private readonly SKPaint white = new SKPaint();
+        private readonly SKPaint counter1 = new SKPaint();
+        private readonly SKPaint counter2 = new SKPaint();
+        private readonly SKPaint counter1shadow = new SKPaint();
+        private readonly SKPaint counter2shadow = new SKPaint();
+        private readonly SKFont label = new SKFont();
+        private readonly SKFont value = new SKFont();
+        private readonly SKBitmap graphbackground;
+        private readonly SKBitmap hd;
+        private readonly SKBitmap cpu;
+        private readonly SKBitmap net;
+        private readonly SKBitmap gpu;
+        private readonly SKBitmap temp;
 
         public StartPage()
         {
             InitializeComponent();
-            Current = this;
+            //Current = this;
             StartViewModel vm = new StartViewModel();
 
             BindingContext = vm ;
@@ -89,7 +77,7 @@ using TouchTracking;
                 temp = SKBitmap.Decode(stream);
             }
 
-            counter1.Color = new SKColor(0, 128, 255);
+            counter1.Color = new SKColor(0, 172, 255);
             counter1.StrokeCap = SKStrokeCap.Round;
             counter1.StrokeWidth = 2;
             counter1.Style = SKPaintStyle.StrokeAndFill;
@@ -112,9 +100,6 @@ using TouchTracking;
             counter2shadow.StrokeWidth = 2;
             counter2shadow.Style = SKPaintStyle.StrokeAndFill;
             counter2shadow.TextAlign = SKTextAlign.Right;
-
-
-
 
             blue.Style = SKPaintStyle.Stroke;
             blue.StrokeCap = SKStrokeCap.Round;
@@ -154,7 +139,7 @@ using TouchTracking;
             canvasView.InvalidateSurface();
         }
 
-        void OnTouchEffectAction(object sender, TouchActionEventArgs args)
+        private void OnTouchEffectAction(object sender, TouchActionEventArgs args)
         {
             switch (args.Type)
             {
@@ -178,20 +163,13 @@ using TouchTracking;
             }
         }
 
-        void OnCanvasViewPaintSurface(object sender, SKPaintSurfaceEventArgs args)
+        private void OnCanvasViewPaintSurface(object sender, SKPaintSurfaceEventArgs args)
         {
-            // Emulator - samsung S9+
-            // width 1024 - 1049
-            // height 1967 - 2073
-            // 1080 - 2157
-            // 1080 - 2088
-
-            SKImageInfo info = new SKImageInfo();
             SKSurface surface = args.Surface;
             SKCanvas canvas = surface.Canvas;
             canvas.Clear(SKColors.Black);
 
-            SensorData[] d = ((BaseViewModel)(this.BindingContext)).DataStore.GetItems();
+            SensorData[] d = ((BaseViewModel)BindingContext).DataStore.GetItems();
             int count = d.Length - 2;
             int margin = (args.Info.Width - graphbackground.Width) / 2;
             int rightmargin = args.Info.Width - margin;
@@ -210,29 +188,29 @@ using TouchTracking;
 
             //canvas.DrawText($"width {args.Info.Width} height {args.Info.Height} count {count}", 1, 900, label, white);
 
-            canvas.DrawText("CPU/Memory", margin + 100, 50, label, gray);
+            canvas.DrawText("Memory/CPU", margin + 100, 50, label, gray);
             canvas.DrawText("Utilisation", margin + 100, 100, label, gray);
-            canvas.DrawText(d[count].SMEMUTI.ToString() + "%", rightmargin - 350, 100, value, counter2shadow);
+            canvas.DrawText(d[count].SMEMUTI.ToString() + "%", rightmargin - 320, 100, value, counter2shadow);
             canvas.DrawText(d[count].SCPUUTI.ToString() + "%", rightmargin, 100, value, counter1shadow);
 
             canvas.DrawText("Disk", margin + 90, 500, label, gray);
-            canvas.DrawText("Read/Write", margin + 90, 550, label, gray);
-            canvas.DrawText(d[count].SDSK7WRITESPD.ToString() + "Mb", rightmargin - 350, 550, value, counter2shadow);
+            canvas.DrawText("Write/Read", margin + 90, 550, label, gray);
+            canvas.DrawText(d[count].SDSK7WRITESPD.ToString() + "Mb", rightmargin - 320, 550, value, counter2shadow);
             canvas.DrawText(d[count].SDSK7READSPD.ToString() + "Mb", rightmargin, 550, value, counter1shadow);
 
             canvas.DrawText("Network", margin + 110, 945, label, gray);
-            canvas.DrawText("Download/Upload", margin + 110, 995, label, gray);
-            canvas.DrawText(d[count].SNIC2ULRATE.ToString() + "Kb", rightmargin - 350, 995, value, counter2shadow);
+            canvas.DrawText("Upload/Download", margin + 110, 995, label, gray);
+            canvas.DrawText(d[count].SNIC2ULRATE.ToString() + "Kb", rightmargin - 320, 995, value, counter2shadow);
             canvas.DrawText(d[count].SNIC2DLRATE.ToString() + "Kb", rightmargin, 995, value, counter1shadow);
 
-            canvas.DrawText("GPU/Memory", margin + 130, 1380, label, gray);
+            canvas.DrawText("Memory/GPU", margin + 130, 1380, label, gray);
             canvas.DrawText("Utilisation", margin + 130, 1425, label, gray);
-            canvas.DrawText(d[count].SGPU1USEDDEMEM.ToString() + "Mb", rightmargin - 350, 1425, value, counter2shadow);
+            canvas.DrawText(d[count].SGPU1USEDDEMEM.ToString() + "Mb", rightmargin - 320, 1425, value, counter2shadow);
             canvas.DrawText(d[count].SGPU1UTI.ToString() + "%", rightmargin, 1425, value, counter1shadow);
 
-            canvas.DrawText("CPU/GPU", margin + 60, 1825, label, gray);
+            canvas.DrawText("GPU/CPU", margin + 60, 1825, label, gray);
             canvas.DrawText("Temperature", margin + 60, 1870, label, gray);
-            canvas.DrawText(d[count].TGPU1DIO.ToString() + "c", rightmargin - 350, 1870, value, counter2shadow);
+            canvas.DrawText(d[count].TGPU1DIO.ToString() + "c", rightmargin - 320, 1870, value, counter2shadow);
             canvas.DrawText(d[count].TCPU.ToString() + "c", rightmargin, 1870, value, counter1shadow);
 
             int x1;
@@ -240,7 +218,7 @@ using TouchTracking;
 
             for (int i = 1; i < Op.MaxValues; i++)
             {
-                x1 = i * 4 + margin + 3;
+                x1 = (i * 4) + margin + 3;
                 x2 = x1 + 4;
 
                 canvas.DrawLine(x1, 428 - (d[i - 1].SMEMUTI * 3), x2, 428 - (d[i].SMEMUTI * 3), counter2shadow);
@@ -248,18 +226,18 @@ using TouchTracking;
                 canvas.DrawLine(x1, 428 - (d[i - 1].SCPUUTI * 3), x2, 428 - (d[i].SCPUUTI * 3), counter1shadow);
                 canvas.DrawLine(x1, 426 - (d[i - 1].SCPUUTI * 3), x2, 426 - (d[i].SCPUUTI * 3), counter1);
 
-                canvas.DrawLine(x1, 872 - (d[i - 1].SDSKWRITESPD ), x2, 872 - (d[i].SDSKWRITESPD ), counter2shadow);
-                canvas.DrawLine(x1, 870 - (d[i - 1].SDSKWRITESPD ), x2, 870 - (d[i].SDSKWRITESPD ), counter2);
-                canvas.DrawLine(x1, 872 - (d[i - 1].SDSKREADSPD ), x2, 872 - (d[i].SDSKREADSPD ), counter1shadow);
-                canvas.DrawLine(x1, 870 - (d[i - 1].SDSKREADSPD ), x2, 870 - (d[i].SDSKREADSPD ), counter1);
+                canvas.DrawLine(x1, 872 - d[i - 1].SDSKWRITESPD , x2, 872 - d[i].SDSKWRITESPD , counter2shadow);
+                canvas.DrawLine(x1, 870 - d[i - 1].SDSKWRITESPD , x2, 870 - d[i].SDSKWRITESPD , counter2);
+                canvas.DrawLine(x1, 872 - d[i - 1].SDSKREADSPD , x2, 872 - d[i].SDSKREADSPD , counter1shadow);
+                canvas.DrawLine(x1, 870 - d[i - 1].SDSKREADSPD , x2, 870 - d[i].SDSKREADSPD , counter1);
                 
-                canvas.DrawLine(x1, 1320 - (d[i - 1].SNICULRATE), x2, 1320 - (d[i].SNICULRATE), counter2shadow);
-                canvas.DrawLine(x1, 1318 - (d[i - 1].SNICULRATE), x2, 1318 - (d[i].SNICULRATE), counter2);
-                canvas.DrawLine(x1, 1320 - (d[i - 1].SNICDLRATE), x2, 1320 - (d[i].SNICDLRATE), counter1shadow);
-                canvas.DrawLine(x1, 1318 - (d[i - 1].SNICDLRATE), x2, 1318 - (d[i].SNICDLRATE), counter1);
+                canvas.DrawLine(x1, 1320 - d[i - 1].SNICULRATE, x2, 1320 - d[i].SNICULRATE, counter2shadow);
+                canvas.DrawLine(x1, 1318 - d[i - 1].SNICULRATE, x2, 1318 - d[i].SNICULRATE, counter2);
+                canvas.DrawLine(x1, 1320 - d[i - 1].SNICDLRATE, x2, 1320 - d[i].SNICDLRATE, counter1shadow);
+                canvas.DrawLine(x1, 1318 - d[i - 1].SNICDLRATE, x2, 1318 - d[i].SNICDLRATE, counter1);
 
-                canvas.DrawLine(x1, 1762 - (d[i - 1].SGPU1USEDDEMEM * 3), x2, 1762 - (d[i].SGPU1USEDDEMEM * 3), counter2shadow);
-                canvas.DrawLine(x1, 1760 - (d[i - 1].SGPU1USEDDEMEM * 3), x2, 1760 - (d[i].SGPU1USEDDEMEM * 3), counter2);
+                canvas.DrawLine(x1, 1762 - d[i - 1].SGPUUSEDDEMEM, x2, 1762 - d[i].SGPUUSEDDEMEM, counter2shadow);
+                canvas.DrawLine(x1, 1760 - d[i - 1].SGPUUSEDDEMEM, x2, 1760 - d[i].SGPUUSEDDEMEM, counter2);
                 canvas.DrawLine(x1, 1762 - (d[i - 1].SGPU1UTI * 3), x2, 1762 - (d[i].SGPU1UTI * 3), counter1shadow);
                 canvas.DrawLine(x1, 1760 - (d[i - 1].SGPU1UTI * 3), x2, 1760 - (d[i].SGPU1UTI * 3), counter1);
 
