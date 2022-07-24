@@ -43,6 +43,13 @@
             _ = connection.StartAsync();
             Battery.BatteryInfoChanged += Battery_BatteryInfoChanged;
             MessagingCenter.Subscribe<ControlMessage>(this, "FrameFinished", (data) => _ = connection.InvokeAsync("SendData"));
+
+            Device.StartTimer(TimeSpan.FromSeconds(10), () =>
+            {
+                _ = Check();
+                return false;
+            });
+
             return StartCommandResult.Sticky;
         }
 
@@ -82,16 +89,19 @@
 
         private bool Check()
         {
-            if (Battery.State == BatteryState.Discharging)
-            {
-                IsCharging = false;
-            }
-            else
+            if ((Battery.PowerSource == BatteryPowerSource.Wireless) || (Battery.PowerSource == BatteryPowerSource.AC) || (Battery.PowerSource == BatteryPowerSource.Usb))
             {
                 IsCharging = true;
             }
+            else
+            {
+                if (Battery.State == BatteryState.Discharging)
+                {
+                    IsCharging = false;
+                }
+            }
 
-            if(connection.State == HubConnectionState.Connected)
+            if (connection.State == HubConnectionState.Connected)
             {
                 IsConnected = true;
             }
@@ -109,6 +119,12 @@
                         ControlMessage startMessage = new ControlMessage("StartPCDisplay");
                         Device.BeginInvokeOnMainThread(() => MessagingCenter.Send(startMessage, "StartPCDisplay"));
                     }
+                }
+                else
+                {
+                    // Phone is off the charger.
+                    ControlMessage startMessage = new ControlMessage("StartMonitor");
+                    Device.BeginInvokeOnMainThread(() => MessagingCenter.Send(startMessage, "StartMonitor"));
                 }
             }
 

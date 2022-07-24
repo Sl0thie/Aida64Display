@@ -11,8 +11,8 @@
 
     using Android.Content;
     using Android.Views;
-using Aida64Mobile.Models;
-using Xamarin.Forms;
+    using Aida64Mobile.Models;
+    using Xamarin.Forms;
 
     [Activity(Label = "Aida64Mobile", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize )]
     public class MainActivity : Xamarin.Forms.Platform.Android.FormsAppCompatActivity
@@ -23,24 +23,19 @@ using Xamarin.Forms;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            System.Diagnostics.Debug.WriteLine("StartupActivity.OnCreate");
+            System.Diagnostics.Debug.WriteLine("MainActivity.OnCreate");
          
-
             Window.AddFlags(WindowManagerFlags.Fullscreen);
-            //Window.AddFlags(WindowManagerFlags.ForceNotFullscreen);
             Window.AddFlags(WindowManagerFlags.KeepScreenOn);
 
             serviceMonitor = new Intent(this, typeof(SignalRService));
             if (!IsServiceRunning(typeof(SignalRService)))
             {
                 _ = StartService(serviceMonitor);
-                //_ = StartForegroundService(serviceMonitor);
             }
 
-            //Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             Xamarin.Forms.Forms.Init(this, savedInstanceState);
-
-            LoadApplication(new App());
+            HideApp();
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)
@@ -52,61 +47,59 @@ using Xamarin.Forms;
 
         protected override void OnStart()
         {
-            base.OnPause(); // Always call the superclass first
+            base.OnPause();
 
-            System.Diagnostics.Debug.WriteLine("StartupActivity.OnStart");
+            System.Diagnostics.Debug.WriteLine("MainActivity.OnStart");
 
             SubscribeToMessages();
         }
 
         protected override void OnResume()
         {
-            base.OnResume(); // Always call the superclass first.
+            base.OnResume();
 
-            System.Diagnostics.Debug.WriteLine("StartupActivity.OnResume");
+            System.Diagnostics.Debug.WriteLine("MainActivity.OnResume");
 
             SubscribeToMessages();
         }
 
         protected override void OnPause()
         {
-            base.OnPause(); // Always call the superclass first
+            base.OnPause();
 
-            System.Diagnostics.Debug.WriteLine("StartupActivity.OnPause");
-
-            //UnsubscribeToMessages();
+            System.Diagnostics.Debug.WriteLine("MainActivity.OnPause");
         }
 
         protected override void OnStop()
         {
-            base.OnPause(); // Always call the superclass first
+            base.OnPause();
 
-            System.Diagnostics.Debug.WriteLine("StartupActivity.OnStop");
+            System.Diagnostics.Debug.WriteLine("MainActivity.OnStop");
 
             //UnsubscribeToMessages();
         }
 
         protected override void OnDestroy()
         {
-            base.OnPause(); // Always call the superclass first
+            base.OnPause();
 
-            System.Diagnostics.Debug.WriteLine("StartupActivity.OnDestroy");
+            System.Diagnostics.Debug.WriteLine("MainActivity.OnDestroy");
 
             UnsubscribeToMessages();
         }
 
         protected override void OnRestart()
         {
-            base.OnPause(); // Always call the superclass first
+            base.OnPause();
 
-            System.Diagnostics.Debug.WriteLine("StartupActivity.OnRestart");
+            System.Diagnostics.Debug.WriteLine("MainActivity.OnRestart");
 
             SubscribeToMessages();
         }
 
         protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
         {
-            System.Diagnostics.Debug.WriteLine("StartActivity.OnActivityResult");
+            System.Diagnostics.Debug.WriteLine("MainActivity.OnActivityResult");
 
             if (requestCode == RequestCode)
             {
@@ -119,12 +112,9 @@ using Xamarin.Forms;
             base.OnActivityResult(requestCode, resultCode, data);
         }
 
-
-
-
         private bool IsServiceRunning(Type cls)
         {
-            System.Diagnostics.Debug.WriteLine("StartupActivity.IsServiceRunning");
+            System.Diagnostics.Debug.WriteLine("MainActivity.IsServiceRunning");
 
             ActivityManager manager = (ActivityManager)GetSystemService(ActivityService);
             foreach (ActivityManager.RunningServiceInfo service in manager.GetRunningServices(int.MaxValue))
@@ -137,8 +127,6 @@ using Xamarin.Forms;
 
             return false;
         }
-
-        
 
         private void HideApp()
         {
@@ -155,6 +143,11 @@ using Xamarin.Forms;
                 Intent intent = new Intent(this, typeof(ChargingActivity));
                 StartActivity(intent);
             });
+        }
+
+        private void UnsubscribeToMessages()
+        {
+            MessagingCenter.Unsubscribe<ControlMessage>(this, "StartPCDisplay");
         }
     }
 }
