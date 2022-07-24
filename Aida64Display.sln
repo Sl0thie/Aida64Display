@@ -9,11 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aida64Mobile", "Aida64Mobil
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aida64Service", "Aida64Service\Aida64Service.csproj", "{A4E7E403-4158-4E1A-A178-E57A253819D5}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CAD", "CAD", "{DF85BECB-429A-4610-B145-7445AE44A9F3}"
-	ProjectSection(SolutionItems) = preProject
-		..\..\Documents\PC Phone Charger - revision 5.0.55.dwg = ..\..\Documents\PC Phone Charger - revision 5.0.55.dwg
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
