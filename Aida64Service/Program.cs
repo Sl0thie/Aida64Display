@@ -1,3 +1,4 @@
+// https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/windows-service?view=aspnetcore-6.0&tabs=visual-studio
 using System.Net;
 
 using Aida64Service;
@@ -8,27 +9,25 @@ using Microsoft.Extensions.Hosting.WindowsServices;
 
 using Serilog;
 
-// https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/windows-service?view=aspnetcore-6.0&tabs=visual-studio
-
 Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Debug()
     .WriteTo.File("Aida64Service - .txt", rollingInterval: RollingInterval.Day)
     .CreateLogger();
 
-WebApplicationOptions? options = new()
+WebApplicationOptions? options = new ()
 {
     Args = args,
-    ContentRootPath = WindowsServiceHelpers.IsWindowsService() ? AppContext.BaseDirectory : default
+    ContentRootPath = WindowsServiceHelpers.IsWindowsService() ? AppContext.BaseDirectory : default,
 };
 
 WebApplicationBuilder? builder = WebApplication.CreateBuilder(options);
 builder.Services.AddRazorPages();
 builder.Services.AddSignalR();
 
-builder.Services.AddHostedService<Worker>(provider =>
+builder.Services.AddHostedService(provider =>
 {
-    var hubContext = provider.GetService<IHubContext<DataHub>>();
-    var aWorker = new Worker(hubContext);
+    IHubContext<DataHub>? hubContext = provider.GetService<IHubContext<DataHub>>();
+    Worker? aWorker = new(hubContext);
     return aWorker;
 });
 

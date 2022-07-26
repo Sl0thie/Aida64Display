@@ -2,15 +2,21 @@
 {
     using Microsoft.AspNetCore.Mvc.RazorPages;
 
+    /// <summary>
+    /// PrivacyModel class.
+    /// </summary>
     public class PrivacyModel : PageModel
     {
-        private readonly ILogger<PrivacyModel> _logger;
-
-        public PrivacyModel(ILogger<PrivacyModel> logger)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PrivacyModel"/> class.
+        /// </summary>
+        public PrivacyModel()
         {
-            _logger = logger;
         }
 
+        /// <summary>
+        /// OnGet method is unused.
+        /// </summary>
         public void OnGet()
         {
         }

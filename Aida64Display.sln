@@ -9,6 +9,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aida64Mobile", "Aida64Mobil
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aida64Service", "Aida64Service\Aida64Service.csproj", "{A4E7E403-4158-4E1A-A178-E57A253819D5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aida64Display.Android", "Aida64Display\Aida64Display.Android\Aida64Display.Android.csproj", "{10546C9C-2E30-4639-A5A4-43394A530B64}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aida64Display", "Aida64Display\Aida64Display\Aida64Display.csproj", "{CABB67FB-7C63-426F-A8AF-914163A0AD86}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aida64Common", "AidaCommon\Aida64Common.csproj", "{7BC762BD-FB50-4DE2-BEF2-348AF5EB8DF1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +35,20 @@ Global
 		{A4E7E403-4158-4E1A-A178-E57A253819D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A4E7E403-4158-4E1A-A178-E57A253819D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A4E7E403-4158-4E1A-A178-E57A253819D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10546C9C-2E30-4639-A5A4-43394A530B64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10546C9C-2E30-4639-A5A4-43394A530B64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10546C9C-2E30-4639-A5A4-43394A530B64}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{10546C9C-2E30-4639-A5A4-43394A530B64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10546C9C-2E30-4639-A5A4-43394A530B64}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10546C9C-2E30-4639-A5A4-43394A530B64}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{CABB67FB-7C63-426F-A8AF-914163A0AD86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CABB67FB-7C63-426F-A8AF-914163A0AD86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CABB67FB-7C63-426F-A8AF-914163A0AD86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CABB67FB-7C63-426F-A8AF-914163A0AD86}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7BC762BD-FB50-4DE2-BEF2-348AF5EB8DF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7BC762BD-FB50-4DE2-BEF2-348AF5EB8DF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7BC762BD-FB50-4DE2-BEF2-348AF5EB8DF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7BC762BD-FB50-4DE2-BEF2-348AF5EB8DF1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

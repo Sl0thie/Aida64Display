@@ -1,17 +1,21 @@
 ﻿namespace Aida64Service.Hubs
 {
+    using Aida64Common.Models;
     using Microsoft.AspNetCore.SignalR;
     using Serilog;
 
+    /// <summary>
+    /// DataHub class.
+    /// </summary>
     public class DataHub : Hub
     {
-        public async Task SendMessage(string user, string message)
+        /// <summary>
+        /// SendData method.
+        /// </summary>
+        /// <returns>The completed task.</returns>
+        public Task SendData()
         {
-            await Clients.All.SendAsync("ReceiveMessage", user, message);
-        }
-
-        public async Task SendData()
-        {
+            // TODO rewrite this.
             try
             {
                 Worker.Expire = DateTime.Now.AddMinutes(1);
@@ -20,8 +24,15 @@
             {
                 Log.Error(ex.Message, ex);
             }
+
+            return Task.CompletedTask;
         }
 
+        /// <summary>
+        /// PassData method sends SensorData to all the clients.
+        /// </summary>
+        /// <param name="data">The SensorData to send.</param>
+        /// <returns>The completed task.</returns>
         public async Task PassData(SensorData data)
         {
             try
