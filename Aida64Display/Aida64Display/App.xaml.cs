@@ -3,6 +3,7 @@
     using System;
     using Xamarin.Forms;
     using Xamarin.Forms.Xaml;
+    using Aida64Display.Views;
 
     /// <summary>
     /// App class.
@@ -16,7 +17,7 @@
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            MainPage = new StartPage();
         }
 
         /// <summary>

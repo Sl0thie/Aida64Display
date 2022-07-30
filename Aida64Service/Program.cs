@@ -27,7 +27,7 @@ builder.Services.AddSignalR();
 builder.Services.AddHostedService(provider =>
 {
     IHubContext<DataHub>? hubContext = provider.GetService<IHubContext<DataHub>>();
-    Worker? aWorker = new(hubContext);
+    Worker? aWorker = new (hubContext);
     return aWorker;
 });
 
