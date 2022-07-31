@@ -1,5 +1,6 @@
 ﻿namespace Aida64Mobile
 {
+    using Aida64Common;
     using Aida64Common.Services;
     using Aida64Mobile.Views;
 
@@ -16,6 +17,7 @@
         public App()
         {
             InitializeComponent();
+            Op.QueueLength = 252;
             DependencyService.Register<SensorDataStore>();
             MainPage = new StartPage();
         }

@@ -1,9 +1,11 @@
 ﻿namespace Aida64Display
 {
     using System;
+    using Aida64Common;
+    using Aida64Common.Services;
+    using Aida64Display.Views;
     using Xamarin.Forms;
     using Xamarin.Forms.Xaml;
-    using Aida64Display.Views;
 
     /// <summary>
     /// App class.
@@ -16,7 +18,8 @@
         public App()
         {
             InitializeComponent();
-
+            Op.QueueLength = 833;
+            DependencyService.Register<SensorDataStore>();
             MainPage = new StartPage();
         }
 

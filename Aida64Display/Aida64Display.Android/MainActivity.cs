@@ -1,9 +1,19 @@
 ﻿namespace Aida64Display.Droid
 {
+    using System;
+
+    using Aida64Common.Models;
+
+    using Aida64Mobile.Droid.Services;
+
     using Android.App;
+    using Android.Content;
     using Android.Content.PM;
     using Android.OS;
     using Android.Runtime;
+    using Android.Views;
+
+    using Xamarin.Forms;
 
     /// <summary>
     /// MainActivity activity.
@@ -11,6 +21,9 @@
     [Activity(Label = "Aida64Display", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize)]
     public class MainActivity : Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
+        private const int RequestCode = 5469;
+        private Intent serviceMonitor;
+
         /// <summary>
         /// Called when the activity is starting.
         /// </summary>
@@ -18,6 +31,12 @@
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+
+            Window.AddFlags(WindowManagerFlags.Fullscreen);
+            Window.AddFlags(WindowManagerFlags.KeepScreenOn);
+
+            serviceMonitor = new Intent(this, typeof(SignalRService));
+            _ = StartService(serviceMonitor);
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             Xamarin.Forms.Forms.Init(this, savedInstanceState);

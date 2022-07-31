@@ -9,9 +9,6 @@
     /// </summary>
     public class SensorDataStore : IDataStore<SensorData>
     {
-        // The total number of data items to keep.
-        private const int MaxValues = 252;
-
         // A queue to manage the data items.
         private readonly Queue<SensorData> items = new Queue<SensorData>();
 
@@ -20,7 +17,7 @@
         /// </summary>
         public SensorDataStore()
         {
-            while (items.Count < MaxValues)
+            while (items.Count < Op.QueueLength)
             {
                 items.Enqueue(new SensorData());
             }
@@ -72,7 +69,7 @@
 
                 items.Enqueue(item);
 
-                if (items.Count > MaxValues)
+                if (items.Count > Op.QueueLength)
                 {
                     _ = items.Dequeue();
                 }
@@ -88,7 +85,7 @@
 
                 items.Enqueue(item);
 
-                if (items.Count > MaxValues)
+                if (items.Count > Op.QueueLength)
                 {
                     _ = items.Dequeue();
                 }

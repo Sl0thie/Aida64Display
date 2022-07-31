@@ -144,6 +144,16 @@
         }
 
         /// <summary>
+        /// Vm_Update method is used to redraw the canvas when the veiw model calls this method.
+        /// </summary>
+        /// <param name="sender">The object where the event originated.</param>
+        /// <param name="e">The arguements for the event.</param>
+        private void Vm_Update(object sender, EventArgs e)
+        {
+            canvasView.InvalidateSurface();
+        }
+
+        /// <summary>
         /// OnDisappearing method fires when the page is hiden from the user.
         /// </summary>
         protected override void OnDisappearing()
@@ -169,15 +179,6 @@
             net.Dispose();
             gpu.Dispose();
             temp.Dispose();
-        }
-
-        /// <summary>
-        /// Vm_Update method is used to redraw the canvas when the veiw model calls this method.
-        /// </summary>
-        /// <param name="sender">The object where the event originated.</param>
-        private void Vm_Update(object sender)
-        {
-            canvasView.InvalidateSurface();
         }
 
         /// <summary>

@@ -18,21 +18,12 @@
     public class SignalRService : Service
     {
         private CancellationTokenSource cts;
-
-        private bool IsCharging { get; set; } = false;
-
-        private bool IsConnected { get; set; } = false;
-
-        private bool WasCharging { get; set; } = false;
-
-        private bool WasConnected { get; set; } = false;
-
         private HubConnection connection;
 
         /// <summary>
         /// SERVICERUNNINGNOTIFICATIONID is the notification id of the service.
         /// </summary>
-        public const int SERVICERUNNINGNOTIFICATIONID = 10000;
+        public const int SERVICERUNNINGNOTIFICATIONID = 10001;
 
         /// <summary>
         /// Return the communication channel to the service.
@@ -60,13 +51,13 @@
             connection.Reconnecting += Connection_Reconnecting;
             _ = connection.On<SensorData>("ReceiveData", (data) => RecieveSensorData(data));
             _ = connection.StartAsync();
-            Battery.BatteryInfoChanged += Battery_BatteryInfoChanged;
+
             MessagingCenter.Subscribe<ControlMessage>(this, "FrameFinished", (data) => _ = connection.InvokeAsync("SendData"));
 
-            Device.StartTimer(TimeSpan.FromSeconds(10), () =>
+            Device.StartTimer(TimeSpan.FromSeconds(60), () =>
             {
-                _ = Check();
-                return false;
+                _ = connection.InvokeAsync("SendData");
+                return true;
             });
 
             return StartCommandResult.Sticky;
@@ -79,7 +70,7 @@
         /// <returns>The successfully completed task.</returns>
         private Task Connection_Reconnecting(Exception arg)
         {
-            _ = Check();
+            System.Diagnostics.Debug.WriteLine($"Connection_Reconnecting {arg.Message}");
             return Task.CompletedTask;
         }
 
@@ -90,7 +81,7 @@
         /// <returns>The successfully completed task.</returns>
         private Task Connection_Closed(Exception arg)
         {
-            _ = Check();
+            System.Diagnostics.Debug.WriteLine($"Connection_Closed {arg.Message}");
             return Task.CompletedTask;
         }
 
@@ -101,7 +92,7 @@
         /// <returns>The successfully completed task.</returns>
         private Task Connection_Reconnected(string arg)
         {
-            _ = Check();
+            System.Diagnostics.Debug.WriteLine($"Connection_Reconnected {arg}");
             return Task.CompletedTask;
         }
 
@@ -117,83 +108,6 @@
             }
 
             base.OnDestroy();
-        }
-
-        /// <summary>
-        /// Battery_BatteryInfoChanged method handles the event fired when the battery information changes.
-        /// </summary>
-        /// <param name="sender">The object where the event originated.</param>
-        /// <param name="e">BatteryInfoChangedEventArgs of the changes.</param>
-        private void Battery_BatteryInfoChanged(object sender, BatteryInfoChangedEventArgs e)
-        {
-            _ = Check();
-        }
-
-        /// <summary>
-        /// Check method checks to see if the activity needs to change.
-        /// </summary>
-        /// <returns>Returns true if completed.</returns>
-        private bool Check()
-        {
-            System.Diagnostics.Debug.WriteLine($"Battery.PowerSource {Battery.PowerSource} Battery.State {Battery.State} Battery.ChargeLevel {Battery.ChargeLevel}");
-
-            if (Battery.State == BatteryState.Discharging)
-            {
-                if ((Battery.PowerSource == BatteryPowerSource.Wireless) || (Battery.PowerSource == BatteryPowerSource.AC) || ((Battery.PowerSource == BatteryPowerSource.Usb) && (Battery.ChargeLevel == 1)))
-                {
-                    IsCharging = true;
-                }
-                else
-                {
-                    IsCharging = false;
-                }
-            }
-            else
-            {
-                IsCharging = true;
-            }
-
-            if (connection.State == HubConnectionState.Connected)
-            {
-                IsConnected = true;
-            }
-            else
-            {
-                IsConnected = false;
-            }
-
-            if ((IsConnected != WasConnected) || (IsCharging != WasCharging))
-            {
-                if (IsCharging)
-                {
-                    if (IsConnected)
-                    {
-                        ControlMessage startMessage = new ControlMessage("StartPCDisplay");
-                        Device.BeginInvokeOnMainThread(() => MessagingCenter.Send(startMessage, "StartPCDisplay"));
-                    }
-                }
-                else
-                {
-                    // Phone is off the charger.
-                    ControlMessage startMessage = new ControlMessage("StartMonitor");
-                    Device.BeginInvokeOnMainThread(() => MessagingCenter.Send(startMessage, "StartMonitor"));
-                }
-            }
-
-            // Store the previous values.
-            WasConnected = IsConnected;
-            WasCharging = IsCharging;
-
-            if (IsCharging)
-            {
-                if (connection.State == HubConnectionState.Disconnected)
-                {
-                    System.Diagnostics.Debug.WriteLine("Reconnecting...");
-                    _ = connection.StartAsync();
-                }
-            }
-
-            return true;
         }
 
         /// <summary>

@@ -47,15 +47,9 @@
         }
 
         /// <summary>
-        /// UpdateEvent delegate.
+        /// Update event handler fires when new data is added.
         /// </summary>
-        /// <param name="sender">The object where the event originated.</param>
-        public delegate void UpdateEvent(object sender);
-
-        /// <summary>
-        /// Update event for UpdateEvent.
-        /// </summary>
-        public event UpdateEvent Update;
+        public event EventHandler Update;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseViewModel"/> class.
@@ -63,10 +57,15 @@
         public BaseViewModel()
         {
             _ = DataStore.GetItems();
-            MessagingCenter.Subscribe<SensorData>(this, "RecieveSensorData", (data) =>
+            MessagingCenter.Unsubscribe<SensorData>(this, "RecieveSensorData");
+            MessagingCenter.Subscribe<SensorData>(this, "RecieveSensorData", (args) =>
             {
-                DataStore.AddItem(data);
-                Update?.Invoke(this);
+                DataStore.AddItem(args);
+
+                if (Update is object)
+                {
+                    Update?.Invoke(this, EventArgs.Empty);
+                }
             });
         }
 

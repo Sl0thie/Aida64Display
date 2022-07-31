@@ -5,6 +5,7 @@
     using System.Threading.Tasks;
 
     using Aida64Common.Models;
+using Aida64Common.ViewModels;
 
     using Android.App;
     using Android.Content;
@@ -210,7 +211,9 @@
         {
             try
             {
-                Device.BeginInvokeOnMainThread(() => MessagingCenter.Send(data, "RecieveSensorData"));
+                System.Diagnostics.Debug.WriteLine($"RecieveSensorData {data.TCPU} {data.TGPU1DIO}");
+
+                Device.BeginInvokeOnMainThread(() => MessagingCenter.Send<SensorData>(data, "RecieveSensorData"));
             }
             catch (Exception ex)
             {
