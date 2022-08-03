@@ -3,14 +3,18 @@
 namespace Aida64Mobile.Droid
 {
     using System;
+
     using Aida64Common.Models;
+
     using Aida64Mobile.Droid.Services;
+
     using Android.App;
     using Android.Content;
     using Android.Content.PM;
     using Android.OS;
     using Android.Runtime;
     using Android.Views;
+
     using Xamarin.Forms;
 
     /// <summary>
@@ -49,13 +53,13 @@ namespace Aida64Mobile.Droid
             PackageManager.SetComponentEnabledSetting(componentName, ComponentEnabledState.Enabled, ComponentEnableOption.DontKillApp);
         }
 
-    /// <summary>
-    /// OnRequestPermissionsResult override manages the application's permissions.
-    /// </summary>
-    /// <param name="requestCode">The request code passed in #requestPermissions(String[], int).</param>
-    /// <param name="permissions">The requested permissions. Never null.</param>
-    /// <param name="grantResults">The grant results for the corresponding permissions which is either android.content.pm.PackageManager#PERMISSION_GRANTED or android.content.pm.PackageManager#PERMISSION_DENIED. Never null.</param>
-    public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)
+        /// <summary>
+        /// OnRequestPermissionsResult override manages the application's permissions.
+        /// </summary>
+        /// <param name="requestCode">The request code passed in #requestPermissions(String[], int).</param>
+        /// <param name="permissions">The requested permissions. Never null.</param>
+        /// <param name="grantResults">The grant results for the corresponding permissions which is either android.content.pm.PackageManager#PERMISSION_GRANTED or android.content.pm.PackageManager#PERMISSION_DENIED. Never null.</param>
+        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)
         {
             Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 

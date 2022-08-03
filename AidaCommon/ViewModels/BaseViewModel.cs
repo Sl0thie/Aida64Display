@@ -4,18 +4,18 @@
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
+
     using Aida64Common.Models;
     using Aida64Common.Services;
+
     using Xamarin.Forms;
 
     /// <summary>
     /// BaseViewModel class.
     /// </summary>
-    public class BaseViewModel : INotifyPropertyChanged
+    public class BaseViewModel : INotifyPropertyChanged, IViewModel
     {
-        /// <summary>
-        /// Gets the DataStore interface.
-        /// </summary>
+        /// <inheritdoc/>
         public IDataStore<SensorData> DataStore
         {
             get
@@ -24,31 +24,7 @@
             }
         }
 
-        private bool isBusy;
-
-        /// <summary>
-        /// Gets or sets a value indicating whether the view model is busy.
-        /// </summary>
-        public bool IsBusy
-        {
-            get { return isBusy; }
-            set { _ = SetProperty(ref isBusy, value); }
-        }
-
-        private string title = string.Empty;
-
-        /// <summary>
-        /// Gets or sets the Title.
-        /// </summary>
-        public string Title
-        {
-            get { return title; }
-            set { _ = SetProperty(ref title, value); }
-        }
-
-        /// <summary>
-        /// Update event handler fires when new data is added.
-        /// </summary>
+        /// <inheritdoc/>
         public event EventHandler Update;
 
         /// <summary>
@@ -58,15 +34,32 @@
         {
             _ = DataStore.GetItems();
             MessagingCenter.Unsubscribe<SensorData>(this, "RecieveSensorData");
-            MessagingCenter.Subscribe<SensorData>(this, "RecieveSensorData", (args) =>
+            MessagingCenter.Subscribe<SensorData>(this, "RecieveSensorData", (data) =>
             {
-                DataStore.AddItem(args);
-
-                if (Update is object)
-                {
-                    Update?.Invoke(this, EventArgs.Empty);
-                }
+                RecieveData(data);
             });
+
+            ControlMessage controlMessage = new ControlMessage("FrameFinished");
+            MessagingCenter.Send(controlMessage, "FrameFinished");
+        }
+
+        /// <summary>
+        /// Finalizes an instance of the <see cref="BaseViewModel"/> class.
+        /// Un-subscribes from the messaging center.
+        /// </summary>
+        ~BaseViewModel()
+        {
+            MessagingCenter.Unsubscribe<SensorData>(this, "RecieveSensorData");
+        }
+
+        private void RecieveData(SensorData data)
+        {
+            DataStore.AddItem(data);
+
+            if (Update is object)
+            {
+                Update?.Invoke(this, EventArgs.Empty);
+            }
         }
 
         /// <summary>

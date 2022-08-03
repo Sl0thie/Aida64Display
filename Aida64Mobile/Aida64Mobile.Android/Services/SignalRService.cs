@@ -5,7 +5,7 @@
     using System.Threading.Tasks;
 
     using Aida64Common.Models;
-using Aida64Common.ViewModels;
+    using Aida64Common.ViewModels;
 
     using Android.App;
     using Android.Content;

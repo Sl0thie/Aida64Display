@@ -5,10 +5,14 @@ namespace Aida64Service
 {
     using System.Threading;
     using System.Timers;
+
     using Aida64Common.Models;
+
     using Aida64Service.Hubs;
+
     using Microsoft.AspNetCore.SignalR;
     using Microsoft.Management.Infrastructure;
+
     using Serilog;
 
     /// <summary>

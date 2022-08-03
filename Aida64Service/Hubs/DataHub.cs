@@ -1,7 +1,9 @@
 ﻿namespace Aida64Service.Hubs
 {
     using Aida64Common.Models;
+
     using Microsoft.AspNetCore.SignalR;
+
     using Serilog;
 
     /// <summary>

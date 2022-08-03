@@ -4,12 +4,17 @@
     using System.IO;
     using System.Reflection;
     using System.Runtime.InteropServices;
+
     using Aida64Common.Models;
     using Aida64Common.ViewModels;
+
     using Aida64Mobile.ViewModels;
+
     using SkiaSharp;
     using SkiaSharp.Views.Forms;
+
     using TouchTracking;
+
     using Xamarin.Forms;
     using Xamarin.Forms.Xaml;
 

@@ -1,9 +1,5 @@
 ﻿namespace Aida64Display.Droid
 {
-    using System;
-
-    using Aida64Common.Models;
-
     using Aida64Mobile.Droid.Services;
 
     using Android.App;
@@ -21,7 +17,7 @@
     [Activity(Label = "Aida64Display", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize)]
     public class MainActivity : Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
-        private const int RequestCode = 5469;
+        //private const int RequestCode = 5469;
         private Intent serviceMonitor;
 
         /// <summary>
@@ -39,7 +35,7 @@
             _ = StartService(serviceMonitor);
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
-            Xamarin.Forms.Forms.Init(this, savedInstanceState);
+            Forms.Init(this, savedInstanceState);
             LoadApplication(new App());
         }
 

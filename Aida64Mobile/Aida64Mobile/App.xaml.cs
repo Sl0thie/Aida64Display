@@ -2,6 +2,7 @@
 {
     using Aida64Common;
     using Aida64Common.Services;
+
     using Aida64Mobile.Views;
 
     using Xamarin.Forms;
@@ -19,7 +20,7 @@
             InitializeComponent();
             Op.QueueLength = 252;
             DependencyService.Register<SensorDataStore>();
-            MainPage = new StartPage();
+            MainPage = new NavigationPage(new StartPage());
         }
 
         /// <summary>

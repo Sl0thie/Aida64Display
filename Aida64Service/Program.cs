@@ -1,7 +1,9 @@
 // https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/windows-service?view=aspnetcore-6.0&tabs=visual-studio
 using System.Net;
+
 using Aida64Service;
 using Aida64Service.Hubs;
+
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Hosting.WindowsServices;
 

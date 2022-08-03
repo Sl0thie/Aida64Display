@@ -1,6 +1,7 @@
 ﻿namespace TouchTracking
 {
     using System;
+
     using Xamarin.Forms;
 
     /// <summary>

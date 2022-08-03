@@ -3,11 +3,15 @@
     using System;
     using System.Threading;
     using System.Threading.Tasks;
+
     using Aida64Common.Models;
+
     using Android.App;
     using Android.Content;
     using Android.OS;
+
     using Microsoft.AspNetCore.SignalR.Client;
+
     using Xamarin.Essentials;
     using Xamarin.Forms;
 
@@ -49,10 +53,18 @@
             connection.Closed += Connection_Closed;
             connection.Reconnected += Connection_Reconnected;
             connection.Reconnecting += Connection_Reconnecting;
-            _ = connection.On<SensorData>("ReceiveData", (data) => RecieveSensorData(data));
-            _ = connection.StartAsync();
 
-            MessagingCenter.Subscribe<ControlMessage>(this, "FrameFinished", (data) => _ = connection.InvokeAsync("SendData"));
+            MessagingCenter.Subscribe<ControlMessage>(this, "FrameFinished", (data) =>
+            {
+                if (connection.State == HubConnectionState.Disconnected)
+                {
+                    _ = connection.StartAsync();
+                }
+
+                _ = connection.InvokeAsync("SendData");
+            });
+
+            _ = connection.On<SensorData>("ReceiveData", (data) => RecieveSensorData(data));
 
             Device.StartTimer(TimeSpan.FromSeconds(60), () =>
             {

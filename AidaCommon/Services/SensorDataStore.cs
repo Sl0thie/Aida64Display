@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
+
     using Aida64Common.Models;
 
     /// <summary>
@@ -33,7 +34,7 @@
             {
                 if (item.SNIC2DLRATE > 3000)
                 {
-                    item.SNICDLRATE = 300;
+                    item.SNICDLRATE = 100;
                 }
                 else
                 {
@@ -42,7 +43,7 @@
 
                 if (item.SNIC2ULRATE > 3000)
                 {
-                    item.SNICULRATE = 300;
+                    item.SNICULRATE = 100;
                 }
                 else
                 {
@@ -51,7 +52,7 @@
 
                 if (item.SDSK7READSPD > 300)
                 {
-                    item.SDSKREADSPD = 300;
+                    item.SDSKREADSPD = 100;
                 }
                 else
                 {
@@ -60,7 +61,7 @@
 
                 if (item.SDSK7WRITESPD > 300)
                 {
-                    item.SDSKWRITESPD = 300;
+                    item.SDSKWRITESPD = 100;
                 }
                 else
                 {
@@ -76,7 +77,7 @@
 
                 if (item.SGPU1USEDDEMEM > 6000)
                 {
-                    item.SGPU1USEDDEMEM = 300;
+                    item.SGPU1USEDDEMEM = 100;
                 }
                 else
                 {

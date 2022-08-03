@@ -5,12 +5,12 @@
     /// <summary>
     /// StartViewModel class.
     /// </summary>
-    internal class StartViewModel : BaseViewModel
+    internal class CPUViewModel : BaseViewModel
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="StartViewModel"/> class.
+        /// Initializes a new instance of the <see cref="CPUViewModel"/> class.
         /// </summary>
-        public StartViewModel()
+        public CPUViewModel()
         {
         }
     }
