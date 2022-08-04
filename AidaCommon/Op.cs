@@ -110,6 +110,36 @@
         public static SKBitmap GraphBack { get; private set; } = new SKBitmap();
 
         /// <summary>
+        /// Gets GraphBackground bitmap.
+        /// </summary>
+        public static SKBitmap GraphBackground { get; private set; } = new SKBitmap();
+
+        /// <summary>
+        /// Gets Hd bitmap.
+        /// </summary>
+        public static SKBitmap Hd { get; private set; } = new SKBitmap();
+
+        /// <summary>
+        /// Gets Cpu bitmap.
+        /// </summary>
+        public static SKBitmap Cpu { get; private set; } = new SKBitmap();
+
+        /// <summary>
+        /// Gets Net bitmap.
+        /// </summary>
+        public static SKBitmap Net { get; private set; } = new SKBitmap();
+
+        /// <summary>
+        /// Gets Gpu bitmap.
+        /// </summary>
+        public static SKBitmap Gpu { get; private set; } = new SKBitmap();
+
+        /// <summary>
+        /// Gets Temp bitmap.
+        /// </summary>
+        public static SKBitmap Temp { get; private set; } = new SKBitmap();
+
+        /// <summary>
         /// Setup method modifies paints and fonts to suit.
         /// </summary>
         /// <param name="queueLength">The queue length for the display.</param>
@@ -136,6 +166,36 @@
             using (Stream stream = assembly.GetManifestResourceStream("Aida64Common.Media.graphback.png"))
             {
                 GraphBack = SKBitmap.Decode(stream);
+            }
+
+            using (Stream stream = assembly.GetManifestResourceStream("Aida64Common.Media.graphbackground.png"))
+            {
+                GraphBackground = SKBitmap.Decode(stream);
+            }
+
+            using (Stream stream = assembly.GetManifestResourceStream("Aida64Common.Media.hd.png"))
+            {
+                Hd = SKBitmap.Decode(stream);
+            }
+
+            using (Stream stream = assembly.GetManifestResourceStream("Aida64Common.Media.cpu.png"))
+            {
+                Cpu = SKBitmap.Decode(stream);
+            }
+
+            using (Stream stream = assembly.GetManifestResourceStream("Aida64Common.Media.net.png"))
+            {
+                Net = SKBitmap.Decode(stream);
+            }
+
+            using (Stream stream = assembly.GetManifestResourceStream("Aida64Common.Media.gpu.png"))
+            {
+                Gpu = SKBitmap.Decode(stream);
+            }
+
+            using (Stream stream = assembly.GetManifestResourceStream("Aida64Common.Media.temp.png"))
+            {
+                Temp = SKBitmap.Decode(stream);
             }
 
             // Setup paints and colors.
@@ -215,7 +275,7 @@
             GrayPaint.StrokeWidth = 1;
 
             LabelFont.Size = 42;
-            ValueFont.Size = 128;
+            ValueFont.Size = 64;
         }
     }
 }

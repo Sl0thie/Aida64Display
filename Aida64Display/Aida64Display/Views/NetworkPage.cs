@@ -19,8 +19,6 @@
     /// </summary>
     public class NetworkPage : BaseView
     {
-        private readonly SKBitmap graphback;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="NetworkPage"/> class.
         /// </summary>
@@ -30,13 +28,6 @@
             NetworkViewModel vm = new NetworkViewModel();
             BindingContext = vm;
             vm.Update += VmUpdate;
-
-            // Load media files.
-            Assembly assembly = GetType().GetTypeInfo().Assembly;
-            using (Stream stream = assembly.GetManifestResourceStream("Aida64Display.Media.graphback.png"))
-            {
-                graphback = SKBitmap.Decode(stream);
-            }
         }
 
         /// <inheritdoc/>
@@ -62,6 +53,28 @@
                     NetworkPage networkPage = new NetworkPage();
                     NavigationPage.SetHasNavigationBar(networkPage, false);
                     _ = Navigation.PushAsync(networkPage, false);
+
+                    break;
+
+                case 3:
+                    TempraturesPage tempraturesPage = new TempraturesPage();
+                    NavigationPage.SetHasNavigationBar(tempraturesPage, false);
+                    _ = Navigation.PushAsync(tempraturesPage, false);
+
+                    break;
+
+                case 4:
+                    VolumeMixerPage volumeMixerPage = new VolumeMixerPage();
+                    NavigationPage.SetHasNavigationBar(volumeMixerPage, false);
+                    _ = Navigation.PushAsync(volumeMixerPage, false);
+
+                    break;
+
+                case 5:
+                    FaceTestPage faceTestPage = new FaceTestPage();
+                    NavigationPage.SetHasNavigationBar(faceTestPage, false);
+                    _ = Navigation.PushAsync(faceTestPage, false);
+
                     break;
             }
         }

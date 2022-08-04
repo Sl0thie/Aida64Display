@@ -61,7 +61,11 @@
         {
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Vm_Update method handles the Update event sent from the ViewModel. This tells the View to redraw the display.
+        /// </summary>
+        /// <param name="sender">The object where the event originated.</param>
+        /// <param name="e">The arguements parameter.</param>
         public void VmUpdate(object sender, EventArgs e)
         {
             canvasView.InvalidateSurface();
@@ -91,6 +95,30 @@
                     else if (point.X < 768)
                     {
                         OnButtonPress(2);
+                    }
+                    else if (point.X < 1024)
+                    {
+                        OnButtonPress(3);
+                    }
+                    else if (point.X < 1280)
+                    {
+                        OnButtonPress(4);
+                    }
+                    else if (point.X < 1536)
+                    {
+                        OnButtonPress(5);
+                    }
+                    else if (point.X < 1792)
+                    {
+                        OnButtonPress(6);
+                    }
+                    else if (point.X < 2048)
+                    {
+                        OnButtonPress(7);
+                    }
+                    else if (point.X < 2304)
+                    {
+                        OnButtonPress(8);
                     }
                 }
             }

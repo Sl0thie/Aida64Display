@@ -9,18 +9,42 @@
 
   <ItemGroup>
     <None Remove="Media\button.png" />
+    <None Remove="Media\cpu.png" />
     <None Remove="Media\digital-7.ttf" />
+    <None Remove="Media\gpu.png" />
     <None Remove="Media\graphback.png" />
+    <None Remove="Media\graphbackground.png" />
+    <None Remove="Media\hd.png" />
+    <None Remove="Media\net.png" />
+    <None Remove="Media\temp.png" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Media\button.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="Media\cpu.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="Media\digital-7.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="Media\gpu.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="Media\graphback.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Media\graphbackground.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Media\hd.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Media\net.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Media\temp.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>

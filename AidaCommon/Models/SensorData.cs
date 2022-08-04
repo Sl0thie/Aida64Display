@@ -222,8 +222,38 @@
         public float TGPU1DIO { get; set; }
 
         /// <summary>
+        /// Gets or sets TMOBO. The motherboard temprature.
+        /// </summary>
+        public float TMOBO { get; set; }
+
+        /// <summary>
+        /// Gets or sets THDD1. The disk temprature. (Samsung SSD 970 EVO Plus 2TB.)
+        /// </summary>
+        public float THDD1 { get; set; }
+
+        /// <summary>
         /// Gets or sets FCPU. The fan speed of the CPU.
         /// </summary>
         public float FCPU { get; set; }
+
+        /// <summary>
+        /// Gets or sets FCPUOPT. The fan speed of the CPU opt.
+        /// </summary>
+        public float FCPUOPT { get; set; }
+
+        /// <summary>
+        /// Gets or sets FCHA1. The fan speed of the Chassis #1.
+        /// </summary>
+        public float FCHA1 { get; set; }
+
+        /// <summary>
+        /// Gets or sets FCHA2. The fan speed of the Chassis #1.
+        /// </summary>
+        public float FCHA2 { get; set; }
+
+        /// <summary>
+        /// Gets or sets FGPU1. The fan speed of the GPU.
+        /// </summary>
+        public float FGPU1 { get; set; }
     }
 }

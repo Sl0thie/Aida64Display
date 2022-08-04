@@ -5,11 +5,16 @@
     using Android.App;
     using Android.Content;
     using Android.Content.PM;
+    using Android.Hardware;
+    using Android.Hardware.Camera2;
+    using Android.Media;
     using Android.OS;
     using Android.Runtime;
     using Android.Views;
 
     using Xamarin.Forms;
+
+
 
     /// <summary>
     /// MainActivity activity.
@@ -50,6 +55,11 @@
             Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+
+        private void TakePhoto()
+        {
+
         }
     }
 }

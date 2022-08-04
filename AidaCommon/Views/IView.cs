@@ -29,13 +29,6 @@
         void OnButtonPress(int button);
 
         /// <summary>
-        /// Vm_Update method handles the Update event sent from the ViewModel. This tells the View to redraw the display.
-        /// </summary>
-        /// <param name="sender">The object where the event originated.</param>
-        /// <param name="e">The arguements parameter.</param>
-        void VmUpdate(object sender, EventArgs e);
-
-        /// <summary>
         /// DrawDisplay method draws the display.
         /// </summary>
         /// <param name="canvas">The cnvas being drawn to. This parameter passes the canvas from the base to the override.</param>

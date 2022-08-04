@@ -18,7 +18,7 @@
         public App()
         {
             InitializeComponent();
-            Op.QueueLength = 252;
+            Op.Setup(252);
             DependencyService.Register<SensorDataStore>();
             MainPage = new NavigationPage(new StartPage());
         }

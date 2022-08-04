@@ -5,6 +5,7 @@
     using System.Threading.Tasks;
 
     using Aida64Common.Models;
+using Aida64Display.Droid;
 
     using Android.App;
     using Android.Content;
@@ -62,6 +63,11 @@
                 }
 
                 _ = connection.InvokeAsync("SendData");
+            });
+
+            MessagingCenter.Subscribe<ImageData>(this, "SaveImage", (data) =>
+            {
+                storePhotoToGallery(data.Data, data.FileName);
             });
 
             _ = connection.On<SensorData>("ReceiveData", (data) => RecieveSensorData(data));
@@ -135,6 +141,23 @@
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine("ERROR: " + ex.Message);
+            }
+        }
+
+        public async void storePhotoToGallery(byte[] bytes, string fileName)
+        {
+            System.Diagnostics.Debug.WriteLine($"storePhotoToGallery {fileName}");
+
+            try
+            {
+                Java.IO.File storagePath = Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryPictures);
+                System.Diagnostics.Debug.WriteLine($"storagePath {storagePath}");
+                string path = System.IO.Path.Combine(storagePath.ToString(), fileName);
+                System.IO.File.WriteAllBytes(path, bytes);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error : {ex.Message}");
             }
         }
     }

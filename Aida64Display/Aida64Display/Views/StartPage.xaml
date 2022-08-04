@@ -3,10 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:skia="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
              xmlns:tt="clr-namespace:TouchTracking;assembly=Aida64Common"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              x:Class="Aida64Display.Views.StartPage" BackgroundColor="#4040FF">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Aida64Display" FontSize="72" HorizontalTextAlignment="Center"/>
+            <Label Text="Aida64Display" FontSize="12" HorizontalTextAlignment="Center"/>
+            <xct:CameraView x:Name="cv" WidthRequest="2" HeightRequest="2" CameraOptions="Front" CaptureMode="Photo" FlashMode="Off" OnAvailable="Cv_OnAvailable" MediaCaptured="Cv_MediaCaptured" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

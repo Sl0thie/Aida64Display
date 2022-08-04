@@ -45,6 +45,28 @@
                     NetworkPage networkPage = new NetworkPage();
                     NavigationPage.SetHasNavigationBar(networkPage, false);
                     _ = Navigation.PushAsync(networkPage, false);
+
+                    break;
+
+                case 3:
+                    TempraturesPage tempraturesPage = new TempraturesPage();
+                    NavigationPage.SetHasNavigationBar(tempraturesPage, false);
+                    _ = Navigation.PushAsync(tempraturesPage, false);
+
+                    break;
+
+                case 4:
+                    VolumeMixerPage volumeMixerPage = new VolumeMixerPage();
+                    NavigationPage.SetHasNavigationBar(volumeMixerPage, false);
+                    _ = Navigation.PushAsync(volumeMixerPage, false);
+
+                    break;
+
+                case 5:
+                    FaceTestPage faceTestPage = new FaceTestPage();
+                    NavigationPage.SetHasNavigationBar(faceTestPage, false);
+                    _ = Navigation.PushAsync(faceTestPage, false);
+
                     break;
             }
         }

@@ -10,7 +10,7 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="PrimaryViewModel"/> class.
         /// </summary>
-        public PrimaryViewModel()
+        internal PrimaryViewModel()
         {
         }
     }

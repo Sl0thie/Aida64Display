@@ -14,7 +14,7 @@
     /// ChargingActivity activity show the display to the user when the mobile device is charging.
     /// </summary>
     [Activity(Label = "ChargingActivity", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = false, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize)]
-    public class ChargingActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
+    public class ChargingActivity : Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         /// <summary>
         /// OnCeeate callback fires when the system first creates the activity. It is used to perform basic application startup logic..
@@ -28,8 +28,6 @@
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             Forms.Init(this, savedInstanceState);
-
-            Window.AddFlags(WindowManagerFlags.Fullscreen);
             Window.AddFlags(WindowManagerFlags.KeepScreenOn);
 
             LoadApplication(new App());
