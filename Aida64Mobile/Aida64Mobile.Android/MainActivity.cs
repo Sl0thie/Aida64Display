@@ -2,19 +2,14 @@
 
 namespace Aida64Mobile.Droid
 {
-    using System;
-
     using Aida64Common.Models;
-
     using Aida64Mobile.Droid.Services;
-
     using Android.App;
     using Android.Content;
     using Android.Content.PM;
     using Android.OS;
     using Android.Runtime;
     using Android.Views;
-
     using Xamarin.Forms;
 
     /// <summary>
@@ -40,12 +35,6 @@ namespace Aida64Mobile.Droid
 
             serviceMonitor = new Intent(this, typeof(SignalRService));
             _ = StartService(serviceMonitor);
-
-            //serviceMonitor = new Intent(this, typeof(SignalRService));
-            //if (!IsServiceRunning(typeof(SignalRService)))
-            //{
-            //    _ = StartService(serviceMonitor);
-            //}
 
             Forms.Init(this, savedInstanceState);
 
@@ -163,27 +152,6 @@ namespace Aida64Mobile.Droid
 
             base.OnActivityResult(requestCode, resultCode, data);
         }
-
-        ///// <summary>
-        ///// IsServiceRunning method checks to see if a type of service is running.
-        ///// </summary>
-        ///// <param name="cls">The type of service.</param>
-        ///// <returns>Returns true if the service is running.</returns>
-        //private bool IsServiceRunning(Type cls)
-        //{
-        //    System.Diagnostics.Debug.WriteLine("MainActivity.IsServiceRunning");
-
-        //    ActivityManager manager = (ActivityManager)GetSystemService(ActivityService);
-        //    foreach (ActivityManager.RunningServiceInfo service in manager.GetRunningServices(int.MaxValue))
-        //    {
-        //        if (service.Service.ClassName.Equals(Java.Lang.Class.FromType(cls).CanonicalName))
-        //        {
-        //            return true;
-        //        }
-        //    }
-
-        //    return false;
-        //}
 
         /// <summary>
         /// HideApp method hides the application from the user.

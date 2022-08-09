@@ -1,4 +1,6 @@
 // https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/windows-service?view=aspnetcore-6.0&tabs=visual-studio
+// https://github.com/vavjeeva/PiMonitR
+
 using System.Net;
 
 using Aida64Service;
@@ -24,7 +26,7 @@ WebApplicationBuilder? builder = WebApplication.CreateBuilder(options);
 
 builder.Services.AddRazorPages();
 
-builder.Services.AddSignalR();
+builder.Services.AddSignalR(o => o.EnableDetailedErrors = true);
 
 builder.Services.AddHostedService(provider =>
 {
@@ -33,10 +35,7 @@ builder.Services.AddHostedService(provider =>
     return aWorker;
 });
 
-builder.WebHost.ConfigureKestrel(configureOptions: (context, serverOptions) =>
-{
-    serverOptions.Listen(IPAddress.Parse("192.168.0.6"), 929);
-});
+builder.WebHost.ConfigureKestrel(configureOptions: (context, serverOptions) => serverOptions.Listen(IPAddress.Parse("192.168.0.6"), 929));
 
 builder.Host.UseWindowsService();
 

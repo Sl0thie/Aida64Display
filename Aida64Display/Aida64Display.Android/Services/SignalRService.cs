@@ -2,18 +2,13 @@
 {
     using System;
     using System.Threading;
+    using System.Threading.Channels;
     using System.Threading.Tasks;
-
     using Aida64Common.Models;
-using Aida64Display.Droid;
-
     using Android.App;
     using Android.Content;
     using Android.OS;
-
     using Microsoft.AspNetCore.SignalR.Client;
-
-    using Xamarin.Essentials;
     using Xamarin.Forms;
 
     /// <summary>
@@ -50,7 +45,7 @@ using Aida64Display.Droid;
         public override StartCommandResult OnStartCommand(Intent intent, StartCommandFlags flags, int startId)
         {
             cts = new CancellationTokenSource();
-            connection = new HubConnectionBuilder().WithUrl("http://192.168.0.6:929/DataHub").Build();
+            connection = new HubConnectionBuilder().WithUrl("http://192.168.0.6:929/DataHub").WithAutomaticReconnect().Build();
             connection.Closed += Connection_Closed;
             connection.Reconnected += Connection_Reconnected;
             connection.Reconnecting += Connection_Reconnecting;
@@ -67,7 +62,14 @@ using Aida64Display.Droid;
 
             MessagingCenter.Subscribe<ImageData>(this, "SaveImage", (data) =>
             {
-                storePhotoToGallery(data.Data, data.FileName);
+                try
+                {
+                    StorePhotoToGallery(data.Data, data.FileName);
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine("ERROR: " + ex.Message);
+                }
             });
 
             _ = connection.On<SensorData>("ReceiveData", (data) => RecieveSensorData(data));
@@ -77,6 +79,8 @@ using Aida64Display.Droid;
                 _ = connection.InvokeAsync("SendData");
                 return true;
             });
+
+            _ = connection.StartAsync();
 
             return StartCommandResult.Sticky;
         }
@@ -144,16 +148,36 @@ using Aida64Display.Droid;
             }
         }
 
-        public async void storePhotoToGallery(byte[] bytes, string fileName)
+        private async void StorePhotoToGallery(byte[] data, string fileName)
         {
-            System.Diagnostics.Debug.WriteLine($"storePhotoToGallery {fileName}");
-
             try
             {
-                Java.IO.File storagePath = Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryPictures);
-                System.Diagnostics.Debug.WriteLine($"storagePath {storagePath}");
-                string path = System.IO.Path.Combine(storagePath.ToString(), fileName);
-                System.IO.File.WriteAllBytes(path, bytes);
+                int chunkSize = 16000;
+                int noOfChunks = Convert.ToInt32(data.Length / chunkSize);
+                int startNo = 0;
+
+                Channel<byte[]> channel = Channel.CreateBounded<byte[]>(noOfChunks);
+                await connection.SendAsync("UploadImageData", channel.Reader);
+
+                for (int i = 0; i <= noOfChunks; i++)
+                {
+                    if (i == noOfChunks)
+                    {
+                        byte[] newArray = new byte[data.Length - startNo];
+                        Array.Copy(data, startNo, newArray, 0, newArray.Length);
+                        await channel.Writer.WriteAsync(newArray);
+                    }
+                    else
+                    {
+                        byte[] newArray = new byte[chunkSize];
+                        Array.Copy(data, startNo, newArray, 0, chunkSize);
+                        await channel.Writer.WriteAsync(newArray);
+                    }
+
+                    startNo = startNo + chunkSize;
+                }
+
+                channel.Writer.Complete();
             }
             catch (Exception ex)
             {

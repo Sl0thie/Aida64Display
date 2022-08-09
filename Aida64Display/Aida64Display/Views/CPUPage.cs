@@ -86,11 +86,12 @@
             int count = d.Length - 2;
 
             canvas.DrawBitmap(Op.GraphBack, 20, 154);
+            canvas.DrawBitmap(Op.Cpu, 0, 0);
 
             canvas.DrawText("CPU", 100, 90, Op.LabelFont, Op.GrayPaint);
 
-            canvas.DrawText(d[count].SMEMUTI.ToString() + "%", 1500, 120, Op.ValueFont, Op.Counter2ShadowPaint);
-            canvas.DrawText(d[count].SCPUUTI.ToString() + "%", 1000, 120, Op.ValueFont, Op.Counter1ShadowPaint);
+            canvas.DrawText(d[count].SMEMUTI.ToString() + "%", 1500, 120, Op.ValueFont, Op.Counter1Paint);
+            canvas.DrawText(d[count].SCPUUTI.ToString() + "%", 1000, 120, Op.ValueFont, Op.Counter1Paint);
 
             int x1;
             int x2;

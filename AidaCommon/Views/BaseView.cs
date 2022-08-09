@@ -6,15 +6,13 @@
     using System.IO;
     using System.Reflection;
     using System.Text;
-
     using Aida64Common.Models;
     using Aida64Common.ViewModels;
-
     using SkiaSharp;
     using SkiaSharp.Views.Forms;
-
     using TouchTracking;
-
+    using Xamarin.CommunityToolkit;
+    using Xamarin.CommunityToolkit.UI.Views;
     using Xamarin.Forms;
     using Xamarin.Forms.PlatformConfiguration.AndroidSpecific;
 
@@ -41,19 +39,66 @@
             set { touchEffect = value; }
         }
 
+        private CameraView cameraView = new CameraView();
+
+        /// <inheritdoc/>
+        public CameraView CameraView
+        {
+            get { return cameraView; }
+            set { cameraView = value; }
+        }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseView"/> class.
         /// </summary>
         public BaseView()
         {
+            cameraView.CameraOptions = CameraOptions.Front;
+            cameraView.CaptureMode = CameraCaptureMode.Photo;
+            cameraView.OnAvailable += Cv_OnAvailable;
+            cameraView.MediaCaptured += Cv_MediaCaptured;
             canvasView.PaintSurface += CanvasView_PaintSurface;
             touchEffect.Capture = true;
             touchEffect.TouchAction += TouchEffect_TouchAction;
             Grid grid = new Grid();
-            grid.Effects.Add(touchEffect);
-            grid.Children.Add(canvasView);
+            RowDefinition row0 = new RowDefinition();
+            row0.Height = 1440;
+            RowDefinition row1 = new RowDefinition();
+            row1.Height = 1440;
 
+            grid.RowDefinitions.Add(row0);
+            grid.RowDefinitions.Add(row1);
+
+            grid.Effects.Add(touchEffect);
+            grid.Children.Add(canvasView, 0, 0);
+            grid.Children.Add(cameraView, 0, 1);
             Content = grid;
+        }
+
+        private void Cv_MediaCaptured(object sender, MediaCapturedEventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine($"Cv_MediaCaptured {e.ImageData.Length} {Environment.CurrentDirectory}");
+
+            try
+            {
+                ImageData id = new ImageData(e.ImageData, DateTime.Now.ToString("yyyy-MM-dd-hh-mm-ss") + ".jpg");
+                MessagingCenter.Send(id, "SaveImage");
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"ERROR {ex.Message}");
+            }
+        }
+
+        private void Cv_OnAvailable(object sender, bool e)
+        {
+            // TODO Replace with message.
+            Device.StartTimer(TimeSpan.FromSeconds(10), () =>
+            {
+                cameraView.Shutter();
+                System.Diagnostics.Debug.WriteLine("Shutter");
+                return true;
+            });
         }
 
         /// <inheritdoc/>

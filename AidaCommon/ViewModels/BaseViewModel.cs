@@ -34,10 +34,7 @@
         {
             _ = DataStore.GetItems();
             MessagingCenter.Unsubscribe<SensorData>(this, "RecieveSensorData");
-            MessagingCenter.Subscribe<SensorData>(this, "RecieveSensorData", (data) =>
-            {
-                RecieveData(data);
-            });
+            MessagingCenter.Subscribe<SensorData>(this, "RecieveSensorData", (data) => RecieveData(data));
 
             ControlMessage controlMessage = new ControlMessage("FrameFinished");
             MessagingCenter.Send(controlMessage, "FrameFinished");

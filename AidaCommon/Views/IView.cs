@@ -1,11 +1,11 @@
 ﻿namespace Aida64Common.Views
 {
     using System;
-
     using SkiaSharp;
     using SkiaSharp.Views.Forms;
-
     using TouchTracking;
+    using Xamarin.CommunityToolkit;
+    using Xamarin.CommunityToolkit.UI.Views;
 
     /// <summary>
     /// IView interface.
@@ -21,6 +21,11 @@
         /// Gets or sets touchEffect object.
         /// </summary>
         TouchEffect TouchEffect { get; set; }
+
+        /// <summary>
+        /// Gets or sets the camera view object.
+        /// </summary>
+        CameraView CameraView { get; set; }
 
         /// <summary>
         /// OnButtonPress method handles the button events.

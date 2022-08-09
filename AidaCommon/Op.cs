@@ -274,8 +274,8 @@
             GrayPaint.Color = SKColors.Gray;
             GrayPaint.StrokeWidth = 1;
 
-            LabelFont.Size = 42;
-            ValueFont.Size = 64;
+            LabelFont.Size = 96;
+            ValueFont.Size = 128;
         }
     }
 }

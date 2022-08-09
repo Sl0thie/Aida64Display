@@ -6,9 +6,15 @@
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              x:Class="Aida64Display.Views.StartPage" BackgroundColor="#4040FF">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Aida64Display" FontSize="12" HorizontalTextAlignment="Center"/>
-            <xct:CameraView x:Name="cv" WidthRequest="2" HeightRequest="2" CameraOptions="Front" CaptureMode="Photo" FlashMode="Off" OnAvailable="Cv_OnAvailable" MediaCaptured="Cv_MediaCaptured" />
-        </StackLayout>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1440"/>
+                <RowDefinition Height="1440"/>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0" Text="Aida64Display" FontSize="12" HorizontalTextAlignment="Center"/>
+            <!--<xct:CameraView x:Name="cv" Grid.Row="1" WidthRequest="2" HeightRequest="2" CameraOptions="Front" CaptureMode="Photo" FlashMode="Off" OnAvailable="Cv_OnAvailable" MediaCaptured="Cv_MediaCaptured" />-->
+
+        </Grid>
     </ContentPage.Content>
 </ContentPage>
