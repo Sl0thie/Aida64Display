@@ -48,12 +48,8 @@ namespace Aida64Service
             try
             {
                 hubContext = hub;
-
                 timer = new System.Timers.Timer(1000);
-
                 timer.Elapsed += Timer_Elapsed;
-
-                // timer.Elapsed += OnTimedEvent;
                 timer.AutoReset = true;
                 timer.Enabled = true;
                 timer.Start();

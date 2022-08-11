@@ -87,18 +87,7 @@
             SensorData c = d[count];
 
             canvas.DrawBitmap(Op.GraphBack, 20, 154);
-
-            canvas.DrawText("Network", 100, 45, Op.LabelFont, Op.GrayPaint);
-
-            canvas.DrawText((c.SNIC1ULRATE + c.SNIC2ULRATE + c.SNIC3ULRATE).ToString() + "Kb", 1500, 120, Op.ValueFont, Op.Counter2ShadowPaint);
-            canvas.DrawText((c.SNIC1DLRATE + c.SNIC2DLRATE + c.SNIC3DLRATE).ToString() + "Kb", 1000, 120, Op.ValueFont, Op.Counter1ShadowPaint);
-
-            canvas.DrawText($"NIC 1 Download {c.SNIC1DLRATE} Kb", 100, 200, Op.ValueFont, Op.Counter1ShadowPaint);
-            canvas.DrawText($"NIC 1 Upload {c.SNIC1ULRATE} Kb", 100, 250, Op.ValueFont, Op.Counter1ShadowPaint);
-            canvas.DrawText($"NIC 2 Download {c.SNIC2DLRATE} Kb", 100, 300, Op.ValueFont, Op.Counter1ShadowPaint);
-            canvas.DrawText($"NIC 2 Upload {c.SNIC2ULRATE} Kb", 100, 350, Op.ValueFont, Op.Counter1ShadowPaint);
-            canvas.DrawText($"NIC 3 Download {c.SNIC3DLRATE} Kb", 100, 400, Op.ValueFont, Op.Counter1ShadowPaint);
-            canvas.DrawText($"NIC 3 Upload {c.SNIC3ULRATE} Kb", 100, 450, Op.ValueFont, Op.Counter1ShadowPaint);
+            canvas.DrawBitmap(Op.Net, 30, 30);
 
             int x1;
             int x2;
@@ -108,24 +97,43 @@
                 x1 = (i * 3) + 30;
                 x2 = x1 + 3;
 
-                canvas.DrawLine(x1, 1134 - d[i - 1].SNIC3ULRATE, x2, 1134 - d[i].SNIC3ULRATE, Op.Counter6ShadowPaint);
-                canvas.DrawLine(x1, 1132 - d[i - 1].SNIC3ULRATE, x2, 1132 - d[i].SNIC3ULRATE, Op.Counter6Paint);
+                canvas.DrawLine(x1, 1144 - (d[i - 1].SNIC3ULRATE / 4), x2, 1144 - (d[i].SNIC3ULRATE / 4), Op.Counter6ShadowPaint);
+                canvas.DrawLine(x1, 1142 - (d[i - 1].SNIC3ULRATE / 4), x2, 1142 - (d[i].SNIC3ULRATE / 4), Op.Counter6Paint);
 
-                canvas.DrawLine(x1, 1134 - d[i - 1].SNIC3DLRATE, x2, 1134 - d[i].SNIC3DLRATE, Op.Counter5ShadowPaint);
-                canvas.DrawLine(x1, 1132 - d[i - 1].SNIC3DLRATE, x2, 1132 - d[i].SNIC3DLRATE, Op.Counter5Paint);
+                canvas.DrawLine(x1, 1144 - (d[i - 1].SNIC3DLRATE / 4), x2, 1144 - (d[i].SNIC3DLRATE / 4), Op.Counter5ShadowPaint);
+                canvas.DrawLine(x1, 1142 - (d[i - 1].SNIC3DLRATE / 4), x2, 1142 - (d[i].SNIC3DLRATE / 4), Op.Counter5Paint);
 
-                canvas.DrawLine(x1, 1134 - d[i - 1].SNIC2ULRATE, x2, 1134 - d[i].SNIC2ULRATE, Op.Counter4ShadowPaint);
-                canvas.DrawLine(x1, 1132 - d[i - 1].SNIC2ULRATE, x2, 1132 - d[i].SNIC2ULRATE, Op.Counter4Paint);
+                canvas.DrawLine(x1, 1144 - (d[i - 1].SNIC2ULRATE / 4), x2, 1144 - (d[i].SNIC2ULRATE / 4), Op.Counter4ShadowPaint);
+                canvas.DrawLine(x1, 1142 - (d[i - 1].SNIC2ULRATE / 4), x2, 1142 - (d[i].SNIC2ULRATE / 4), Op.Counter4Paint);
 
-                canvas.DrawLine(x1, 1134 - d[i - 1].SNIC2DLRATE, x2, 1134 - d[i].SNIC2DLRATE, Op.Counter3ShadowPaint);
-                canvas.DrawLine(x1, 1132 - d[i - 1].SNIC2DLRATE, x2, 1132 - d[i].SNIC2DLRATE, Op.Counter3Paint);
+                canvas.DrawLine(x1, 1144 - (d[i - 1].SNIC2DLRATE / 4), x2, 1144 - (d[i].SNIC2DLRATE / 4), Op.Counter3ShadowPaint);
+                canvas.DrawLine(x1, 1142 - (d[i - 1].SNIC2DLRATE / 4), x2, 1142 - (d[i].SNIC2DLRATE / 4), Op.Counter3Paint);
 
-                canvas.DrawLine(x1, 1134 - d[i - 1].SNIC1ULRATE, x2, 1134 - d[i].SNIC1ULRATE, Op.Counter2ShadowPaint);
-                canvas.DrawLine(x1, 1132 - d[i - 1].SNIC1ULRATE, x2, 1132 - d[i].SNIC1ULRATE, Op.Counter2Paint);
+                canvas.DrawLine(x1, 1144 - (d[i - 1].SNIC1ULRATE / 4), x2, 1144 - (d[i].SNIC1ULRATE / 4), Op.Counter2ShadowPaint);
+                canvas.DrawLine(x1, 1142 - (d[i - 1].SNIC1ULRATE / 4), x2, 1142 - (d[i].SNIC1ULRATE / 4), Op.Counter2Paint);
 
-                canvas.DrawLine(x1, 1134 - d[i - 1].SNIC1DLRATE, x2, 1134 - d[i].SNIC1DLRATE, Op.Counter1ShadowPaint);
-                canvas.DrawLine(x1, 1132 - d[i - 1].SNIC1DLRATE, x2, 1132 - d[i].SNIC1DLRATE, Op.Counter1Paint);
+                canvas.DrawLine(x1, 1144 - (d[i - 1].SNIC1DLRATE / 4), x2, 1144 - (d[i].SNIC1DLRATE / 4), Op.Counter1ShadowPaint);
+                canvas.DrawLine(x1, 1142 - (d[i - 1].SNIC1DLRATE / 4), x2, 1142 - (d[i].SNIC1DLRATE / 4), Op.Counter1Paint);
             }
+
+            canvas.DrawText("Network", 140, 110, Op.LabelFont, Op.GrayPaint);
+
+            canvas.DrawText((c.SNIC1ULRATE + c.SNIC2ULRATE + c.SNIC3ULRATE).ToString() + "Kb", 1500, 120, Op.ValueFont, Op.Counter2PaintRight);
+            canvas.DrawText((c.SNIC1DLRATE + c.SNIC2DLRATE + c.SNIC3DLRATE).ToString() + "Kb", 1000, 120, Op.ValueFont, Op.Counter1PaintRight);
+
+            canvas.DrawText($"NIC 1 Down", 50, 250, Op.ValueSubFont, Op.GrayPaint);
+            canvas.DrawText($"NIC 1 Up", 50, 350, Op.ValueSubFont, Op.GrayPaint);
+            canvas.DrawText($"NIC 2 Down", 50, 450, Op.ValueSubFont, Op.GrayPaint);
+            canvas.DrawText($"NIC 2 Up", 50, 550, Op.ValueSubFont, Op.GrayPaint);
+            canvas.DrawText($"NIC 3 Down", 50, 650, Op.ValueSubFont, Op.GrayPaint);
+            canvas.DrawText($"NIC 3 Up", 50, 750, Op.ValueSubFont, Op.GrayPaint);
+
+            canvas.DrawText($"{c.SNIC1DLRATE} Kb", 600, 250, Op.ValueSubFont, Op.Counter1PaintRight);
+            canvas.DrawText($"{c.SNIC1ULRATE} Kb", 600, 350, Op.ValueSubFont, Op.Counter2PaintRight);
+            canvas.DrawText($"{c.SNIC2DLRATE} Kb", 600, 450, Op.ValueSubFont, Op.Counter3PaintRight);
+            canvas.DrawText($"{c.SNIC2ULRATE} Kb", 600, 550, Op.ValueSubFont, Op.Counter4PaintRight);
+            canvas.DrawText($"{c.SNIC3DLRATE} Kb", 600, 650, Op.ValueSubFont, Op.Counter5PaintRight);
+            canvas.DrawText($"{c.SNIC3ULRATE} Kb", 600, 750, Op.ValueSubFont, Op.Counter6PaintRight);
         }
     }
 }

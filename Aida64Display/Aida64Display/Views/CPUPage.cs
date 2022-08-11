@@ -2,16 +2,12 @@
 {
     using System.IO;
     using System.Reflection;
-
     using Aida64Common;
     using Aida64Common.Models;
     using Aida64Common.ViewModels;
     using Aida64Common.Views;
-
     using Aida64Display.ViewModels;
-
     using SkiaSharp;
-
     using Xamarin.Forms;
 
     /// <summary>
@@ -86,12 +82,7 @@
             int count = d.Length - 2;
 
             canvas.DrawBitmap(Op.GraphBack, 20, 154);
-            canvas.DrawBitmap(Op.Cpu, 0, 0);
-
-            canvas.DrawText("CPU", 100, 90, Op.LabelFont, Op.GrayPaint);
-
-            canvas.DrawText(d[count].SMEMUTI.ToString() + "%", 1500, 120, Op.ValueFont, Op.Counter1Paint);
-            canvas.DrawText(d[count].SCPUUTI.ToString() + "%", 1000, 120, Op.ValueFont, Op.Counter1Paint);
+            canvas.DrawBitmap(Op.Cpu, 30, 30);
 
             int x1;
             int x2;
@@ -101,9 +92,40 @@
                 x1 = (i * 3) + 30;
                 x2 = x1 + 3;
 
-                canvas.DrawLine(x1, 1134 - (d[i - 1].SCPUUTI * 10), x2, 1134 - (d[i].SCPUUTI * 10), Op.Counter1ShadowPaint);
-                canvas.DrawLine(x1, 1132 - (d[i - 1].SCPUUTI * 10), x2, 1132 - (d[i].SCPUUTI * 10), Op.Counter1Paint);
+                canvas.DrawLine(x1, 1144 - (d[i - 1].SCPU1UTI * 10), x2, 1144 - (d[i].SCPU1UTI * 10), Op.Counter1ShadowPaint);
+                canvas.DrawLine(x1, 1144 - (d[i - 1].SCPU2UTI * 10), x2, 1144 - (d[i].SCPU2UTI * 10), Op.Counter1ShadowPaint);
+                canvas.DrawLine(x1, 1144 - (d[i - 1].SCPU3UTI * 10), x2, 1144 - (d[i].SCPU3UTI * 10), Op.Counter1ShadowPaint);
+                canvas.DrawLine(x1, 1144 - (d[i - 1].SCPU4UTI * 10), x2, 1144 - (d[i].SCPU4UTI * 10), Op.Counter1ShadowPaint);
+                canvas.DrawLine(x1, 1144 - (d[i - 1].SCPU5UTI * 10), x2, 1144 - (d[i].SCPU5UTI * 10), Op.Counter1ShadowPaint);
+                canvas.DrawLine(x1, 1144 - (d[i - 1].SCPU6UTI * 10), x2, 1144 - (d[i].SCPU6UTI * 10), Op.Counter1ShadowPaint);
+                canvas.DrawLine(x1, 1144 - (d[i - 1].SCPU7UTI * 10), x2, 1144 - (d[i].SCPU7UTI * 10), Op.Counter1ShadowPaint);
+                canvas.DrawLine(x1, 1144 - (d[i - 1].SCPU8UTI * 10), x2, 1144 - (d[i].SCPU8UTI * 10), Op.Counter1ShadowPaint);
+
+                canvas.DrawLine(x1, 1144 - (d[i - 1].SCPUUTI * 10), x2, 1144 - (d[i].SCPUUTI * 10), Op.Counter1ShadowPaint);
+                canvas.DrawLine(x1, 1142 - (d[i - 1].SCPUUTI * 10), x2, 1142 - (d[i].SCPUUTI * 10), Op.Counter1Paint);
             }
+
+            canvas.DrawText("CPU", 140, 110, Op.LabelFont, Op.GrayPaint);
+            canvas.DrawText(d[count].SMEMUTI.ToString() + "%", 1500, 120, Op.ValueFont, Op.Counter1PaintRight);
+            canvas.DrawText(d[count].SCPUUTI.ToString() + "%", 1000, 120, Op.ValueFont, Op.Counter1PaintRight);
+
+            canvas.DrawText($"Core 1", 50, 250, Op.ValueSubFont, Op.GrayPaint);
+            canvas.DrawText($"Core 2", 50, 350, Op.ValueSubFont, Op.GrayPaint);
+            canvas.DrawText($"Core 3", 50, 430, Op.ValueSubFont, Op.GrayPaint);
+            canvas.DrawText($"Core 4", 50, 510, Op.ValueSubFont, Op.GrayPaint);
+            canvas.DrawText($"Core 5", 50, 590, Op.ValueSubFont, Op.GrayPaint);
+            canvas.DrawText($"Core 6", 50, 670, Op.ValueSubFont, Op.GrayPaint);
+            canvas.DrawText($"Core 7", 50, 750, Op.ValueSubFont, Op.GrayPaint);
+            canvas.DrawText($"Core 8", 50, 830, Op.ValueSubFont, Op.GrayPaint);
+
+            canvas.DrawText($"{d[count].SCPU1UTI} %", 400, 250, Op.ValueSubFont, Op.Counter1PaintRight);
+            canvas.DrawText($"{d[count].SCPU2UTI} %", 400, 350, Op.ValueSubFont, Op.Counter1PaintRight);
+            canvas.DrawText($"{d[count].SCPU3UTI} %", 400, 430, Op.ValueSubFont, Op.Counter1PaintRight);
+            canvas.DrawText($"{d[count].SCPU4UTI} %", 400, 510, Op.ValueSubFont, Op.Counter1PaintRight);
+            canvas.DrawText($"{d[count].SCPU5UTI} %", 400, 590, Op.ValueSubFont, Op.Counter1PaintRight);
+            canvas.DrawText($"{d[count].SCPU6UTI} %", 400, 670, Op.ValueSubFont, Op.Counter1PaintRight);
+            canvas.DrawText($"{d[count].SCPU7UTI} %", 400, 750, Op.ValueSubFont, Op.Counter1PaintRight);
+            canvas.DrawText($"{d[count].SCPU8UTI} %", 400, 830, Op.ValueSubFont, Op.Counter1PaintRight);
         }
     }
 }

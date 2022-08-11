@@ -64,7 +64,7 @@
             {
                 try
                 {
-                    StorePhotoToGallery(data.Data, data.FileName);
+                    StorePhotoToGallery(data.Data);
                 }
                 catch (Exception ex)
                 {
@@ -148,7 +148,7 @@
             }
         }
 
-        private async void StorePhotoToGallery(byte[] data, string fileName)
+        private async void StorePhotoToGallery(byte[] data)
         {
             try
             {
@@ -174,7 +174,7 @@
                         await channel.Writer.WriteAsync(newArray);
                     }
 
-                    startNo = startNo + chunkSize;
+                    startNo += chunkSize;
                 }
 
                 channel.Writer.Complete();
